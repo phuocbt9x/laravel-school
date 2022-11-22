@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('fullname');
             $table->boolean('gender')->default(0);
             $table->timestamp('birthdate');
+            $table->unsignedInteger('login_id');
             $table->string('avatar');
             $table->string('phone');
             $table->unsignedInteger('course_id');
@@ -25,11 +26,13 @@ return new class extends Migration
             $table->unsignedInteger('city_id');
             $table->unsignedInteger('district_id');
             $table->unsignedInteger('ward_id');
-            $table->boolean('activated')->default(0);
             $table->timestamps();
             $table->foreign('course_id')
                 ->references('id')
                 ->on('courses');
+            $table->foreign('login_id')
+                ->references('id')
+                ->on('logins');
         });
     }
 

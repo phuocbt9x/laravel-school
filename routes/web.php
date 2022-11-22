@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Controllers\TeacherController;
+use App\Models\TeacherModel;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -15,4 +17,17 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('homepage');
+})->name('homepage');
+
+
+Route::middleware('checkLogin')->group(function () {
+    Route::group(['controller' => TeacherController::class, 'prefix' => 'teacher', 'as' => 'teacher.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('show/{teacherModel}', 'show')->name('show');
+        Route::get('edit/{teacherModel}', 'edit')->name('edit');
+        Route::put('update/{teacherModel}', 'update')->name('update');
+        Route::delete('destroy/{teacherModel}', 'destroy')->name('destroy');
+    });
 });

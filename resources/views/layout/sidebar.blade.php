@@ -13,7 +13,7 @@
     <div class="collapse navbar-collapse  w-auto h-auto" id="sidenav-collapse-main">
         <ul class="navbar-nav">
             <li class="nav-item">
-                <a class="nav-link active" href="">
+                <a class="nav-link active" href="{{ route('homepage') }}">
                     <div
                         class="icon icon-shape icon-sm text-center  me-2 d-flex align-items-center justify-content-center">
                         <i class="ni ni-align-left-2 text-dark text-sm"></i>
@@ -32,7 +32,7 @@
                 <div class="collapse " id="dashboardsExamples">
                     <ul class="nav ms-4">
                         <li class="nav-item ">
-                            <a class="nav-link " href="">
+                            <a class="nav-link " href="{{ route('teacher.index') }}">
                                 <span class="sidenav-mini-icon"> L </span>
                                 <span class="sidenav-normal"> Danh sách giảng viên </span>
                             </a>
