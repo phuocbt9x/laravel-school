@@ -22,50 +22,38 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                <a data-bs-toggle="collapse" href="#teacher" class="nav-link " aria-controls="teacher" role="button"
+                    aria-expanded="false">
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                         <i class="ni ni-shop text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Quản lý giảng viên</span>
                 </a>
-                <div class="collapse " id="dashboardsExamples">
+                <div class="collapse " id="teacher">
                     <ul class="nav ms-4">
                         <li class="nav-item ">
                             <a class="nav-link " href="{{ route('teacher.index') }}">
-                                <span class="sidenav-mini-icon"> L </span>
+                                <span class="sidenav-mini-icon"> G </span>
                                 <span class="sidenav-normal"> Danh sách giảng viên </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/default.html">
-                                <span class="sidenav-mini-icon"> D </span>
-                                <span class="sidenav-normal"> Default </span>
                             </a>
                         </li>
                     </ul>
                 </div>
             </li>
             <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                <a data-bs-toggle="collapse" href="#student" class="nav-link " aria-controls="student" role="button"
+                    aria-expanded="false">
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                         <i class="ni ni-shop text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Quản lý sinh viên</span>
                 </a>
-                <div class="collapse " id="dashboardsExamples">
+                <div class="collapse " id="student">
                     <ul class="nav ms-4">
                         <li class="nav-item ">
                             <a class="nav-link " href="../../pages/dashboards/landing.html">
                                 <span class="sidenav-mini-icon"> L </span>
                                 <span class="sidenav-normal"> Danh sách giảng viên </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/default.html">
-                                <span class="sidenav-mini-icon"> D </span>
-                                <span class="sidenav-normal"> Default </span>
                             </a>
                         </li>
                     </ul>
@@ -110,25 +98,19 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                <a data-bs-toggle="collapse" href="#subject" class="nav-link " aria-controls="subject" role="button"
+                    aria-expanded="false">
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                         <i class="ni ni-shop text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Quản lý Môn học</span>
                 </a>
-                <div class="collapse " id="dashboardsExamples">
+                <div class="collapse " id="subject">
                     <ul class="nav ms-4">
                         <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/landing.html">
-                                <span class="sidenav-mini-icon"> L </span>
-                                <span class="sidenav-normal"> Danh sách giảng viên </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/default.html">
-                                <span class="sidenav-mini-icon"> D </span>
-                                <span class="sidenav-normal"> Default </span>
+                            <a class="nav-link " href="{{ route('subject.index') }}">
+                                <span class="sidenav-mini-icon"> H </span>
+                                <span class="sidenav-normal"> Danh sách môn học </span>
                             </a>
                         </li>
                     </ul>
@@ -148,12 +130,6 @@
                             <a class="nav-link " href="../../pages/dashboards/landing.html">
                                 <span class="sidenav-mini-icon"> L </span>
                                 <span class="sidenav-normal"> Danh sách giảng viên </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/default.html">
-                                <span class="sidenav-mini-icon"> D </span>
-                                <span class="sidenav-normal"> Default </span>
                             </a>
                         </li>
                     </ul>

@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MajorController;
+use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Models\DepartmentModel;
 use App\Models\TeacherModel;
@@ -52,5 +53,15 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('edit/{majorModel}', 'edit')->name('edit');
         Route::put('update/{majorModel}', 'update')->name('update');
         Route::delete('destroy/{majorModel}', 'destroy')->name('destroy');
+    });
+
+    //Môn học
+    Route::group(['controller' => SubjectController::class, 'prefix' => 'subject', 'as' => 'subject.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{subjectModel}', 'edit')->name('edit');
+        Route::put('update/{subjectModel}', 'update')->name('update');
+        Route::delete('destroy/{subjectModel}', 'destroy')->name('destroy');
     });
 });
