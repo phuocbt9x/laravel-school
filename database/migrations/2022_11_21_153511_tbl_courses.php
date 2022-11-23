@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('courses', function (Blueprint $table) {
             $table->increments('id');
-            $table->string('name');
+            $table->string('name')->unique();
             $table->string('slug');
             $table->unsignedInteger('major_id');
             $table->boolean('activated')->default(0);
