@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MajorController;
+use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
 use App\Models\DepartmentModel;
@@ -63,5 +64,15 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('edit/{subjectModel}', 'edit')->name('edit');
         Route::put('update/{subjectModel}', 'update')->name('update');
         Route::delete('destroy/{subjectModel}', 'destroy')->name('destroy');
+    });
+
+    //Ca học
+    Route::group(['controller' => ShiftController::class, 'prefix' => 'shift', 'as' => 'shift.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{shiftModel}', 'edit')->name('edit');
+        Route::put('update/{shiftModel}', 'update')->name('update');
+        Route::delete('destroy/{shiftModel}', 'destroy')->name('destroy');
     });
 });

@@ -17,8 +17,8 @@ return new class extends Migration
             $table->id();
             $table->string('title')->unique();
             $table->string('slug');
-            $table->timestamp('time_start');
-            $table->timestamp('time_end');
+            $table->time('time_start');
+            $table->time('time_end');
             $table->boolean('activated')->default(0);
             $table->timestamps();
         });
