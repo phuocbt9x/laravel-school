@@ -17,12 +17,12 @@ return new class extends Migration
             $table->increments('id');
             $table->string('name')->unique();
             $table->string('slug');
-            $table->unsignedInteger('major_id');
+            $table->unsignedInteger('department_id');
             $table->boolean('activated')->default(0);
             $table->timestamps();
-            $table->foreign('major_id')
+            $table->foreign('department_id')
                 ->references('id')
-                ->on('majors');
+                ->on('departments');
         });
     }
 

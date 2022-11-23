@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ShiftController;
@@ -74,5 +75,15 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('edit/{shiftModel}', 'edit')->name('edit');
         Route::put('update/{shiftModel}', 'update')->name('update');
         Route::delete('destroy/{shiftModel}', 'destroy')->name('destroy');
+    });
+
+    //Lớp học
+    Route::group(['controller' => CourseController::class, 'prefix' => 'course', 'as' => 'course.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{courseModel}', 'edit')->name('edit');
+        Route::put('update/{courseModel}', 'update')->name('update');
+        Route::delete('destroy/{courseModel}', 'destroy')->name('destroy');
     });
 });

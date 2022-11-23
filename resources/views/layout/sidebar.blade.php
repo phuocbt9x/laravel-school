@@ -127,7 +127,7 @@
                 <div class="collapse " id="course">
                     <ul class="nav ms-4">
                         <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/landing.html">
+                            <a class="nav-link " href="{{ route('course.index') }}">
                                 <span class="sidenav-mini-icon"> L </span>
                                 <span class="sidenav-normal"> Danh sách lớp </span>
                             </a>
