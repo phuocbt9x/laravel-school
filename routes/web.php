@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\MajorController;
 use App\Http\Controllers\TeacherController;
 use App\Models\DepartmentModel;
 use App\Models\TeacherModel;
@@ -33,13 +34,23 @@ Route::middleware('checkLogin')->group(function () {
         Route::delete('destroy/{teacherModel}', 'destroy')->name('destroy');
     });
 
+    //Khoa
     Route::group(['controller' => DepartmentController::class, 'prefix' => 'department', 'as' => 'department.'], function () {
         Route::get('/', 'index')->name('index');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
-        Route::get('show/{departmentModel}', 'show')->name('show');
         Route::get('edit/{departmentModel}', 'edit')->name('edit');
         Route::put('update/{departmentModel}', 'update')->name('update');
         Route::delete('destroy/{departmentModel}', 'destroy')->name('destroy');
+    });
+
+    //Ngành
+    Route::group(['controller' => MajorController::class, 'prefix' => 'major', 'as' => 'major.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('edit/{majorModel}', 'edit')->name('edit');
+        Route::put('update/{majorModel}', 'update')->name('update');
+        Route::delete('destroy/{majorModel}', 'destroy')->name('destroy');
     });
 });

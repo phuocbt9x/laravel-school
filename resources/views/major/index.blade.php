@@ -5,38 +5,42 @@
         <div class="card">
 
             <div class="card-header d-flex justify-content-between">
-                <h5 class="mb-0">Danh sách khoa</h5>
-                <a href="{{ route('department.create') }}" class="btn btn-success">Thêm mới Khoa</a>
+                <h5 class="mb-0">Danh sách chuyên ngành</h5>
+                <a href="{{ route('major.create') }}" class="btn btn-success">Thêm mới chuyên ngành</a>
             </div>
             <div class="table-responsive">
                 <table class="table table-flush" id="datatable-search">
                     <thead class="thead-light">
                         <tr>
-                            <th>Tên Khoa</th>
+                            <th>Tên Chuyên Ngành</th>
                             <th>Slug</th>
+                            <th>Tên Khoa</th>
                             <th>Trạng thái</th>
                             <th>Chức năng</th>
                         </tr>
                     </thead>
                     <tbody>
-                        @foreach ($departments as $department)
+                        @foreach ($majors as $major)
                         <tr>
                             <td class="text-sm font-weight-normal">
-                                {{ $department->name }}
+                                {{ $major->name }}
                             </td>
                             <td class="text-sm font-weight-normal">
-                                {{ $department->slug }}
+                                {{ $major->slug }}
                             </td>
                             <td class="text-sm font-weight-normal">
-                                {!! $department->status() !!}
+                                {{ $major->department->name }}
                             </td>
                             <td class="text-sm font-weight-normal">
-                                <a href="{{ route('department.edit', $department->slug) }}"
-                                    class="badge bg-gradient-secondary" title="Chỉnh sửa">
+                                {!! $major->status() !!}
+                            </td>
+                            <td class="text-sm font-weight-normal">
+                                <a href="{{ route('major.edit', $major->slug) }}" class="badge bg-gradient-secondary"
+                                    title="Chỉnh sửa">
                                     <i class="fas fa-edit"></i>
                                 </a>
                                 <a href="javascript:;" class="badge bg-gradient-danger" title="Xóa"
-                                    onclick="deleteItem('{{ $department->slug }}')">
+                                    onclick="deleteItem('{{ $major->slug }}')">
                                     <i class="fas fa-trash"></i>
                                 </a>
                             </td>
@@ -58,7 +62,7 @@
 </script>
 <script>
     function deleteItem(slug){
-        let urlDelete = '{{ route("department.destroy", ":slug") }}';
+        let urlDelete = '{{ route("major.destroy", ":slug") }}';
         urlDelete = urlDelete.replace(':slug', slug);
         let message = "Bạn có thực sự muốn xóa dữ liệu này! Dữ liệu sẽ không thể khôi phục khi bạn chấp nhận xóa nó!";
         if(confirm(message)){

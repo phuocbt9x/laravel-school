@@ -91,25 +91,19 @@
                 </div>
             </li>
             <li class="nav-item">
-                <a data-bs-toggle="collapse" href="#dashboardsExamples" class="nav-link "
-                    aria-controls="dashboardsExamples" role="button" aria-expanded="false">
+                <a data-bs-toggle="collapse" href="#major" class="nav-link " aria-controls="major" role="button"
+                    aria-expanded="false">
                     <div class="icon icon-shape icon-sm text-center d-flex align-items-center justify-content-center">
                         <i class="ni ni-shop text-primary text-sm opacity-10"></i>
                     </div>
                     <span class="nav-link-text ms-1">Quản lý Ngành học</span>
                 </a>
-                <div class="collapse " id="dashboardsExamples">
+                <div class="collapse " id="major">
                     <ul class="nav ms-4">
                         <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/landing.html">
+                            <a class="nav-link " href="{{ route('major.index') }}">
                                 <span class="sidenav-mini-icon"> L </span>
-                                <span class="sidenav-normal"> Danh sách giảng viên </span>
-                            </a>
-                        </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/default.html">
-                                <span class="sidenav-mini-icon"> D </span>
-                                <span class="sidenav-normal"> Default </span>
+                                <span class="sidenav-normal"> Danh sách ngành học </span>
                             </a>
                         </li>
                     </ul>

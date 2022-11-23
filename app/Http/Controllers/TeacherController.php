@@ -63,6 +63,9 @@ class TeacherController extends Controller
                     return redirect()->route('teacher.index')
                         ->withErrors(['success' => 'Thêm mới dữ liệu thành công']);
                 }
+                $login->delete();
+                return redirect()->route('teacher.index')
+                    ->withErrors(['error' => 'Thêm mới dữ liệu thất bại']);
             }
         } catch (\Throwable $th) {
             return redirect()->back();
