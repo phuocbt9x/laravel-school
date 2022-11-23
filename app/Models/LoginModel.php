@@ -11,4 +11,8 @@ class LoginModel extends User
     protected $table = 'logins';
     protected $fillable = ['email', 'password', 'level', 'activated'];
     protected $hidden = ['password'];
+    public function getInfo()
+    {
+        return $this->hasOne(TeacherModel::class, 'login_id', 'id');
+    }
 }

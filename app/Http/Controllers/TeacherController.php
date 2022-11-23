@@ -42,13 +42,14 @@ class TeacherController extends Controller
     {
         try {
             $login = LoginModel::create($request->only(['email', 'password', 'level', 'activated']));
+
             if (!empty($login)) {
                 $request->merge([
                     'login_id' => $login->id
                 ]);
 
                 $dataTeacher = $request->except(['email', 'password', 'activated']);
-
+                
                 if ($request->hasFile('avatar')) {
                     $avatar = $request->avatar;
                     $nameAvatar = $avatar->getClientOriginalName();
@@ -58,11 +59,15 @@ class TeacherController extends Controller
                 }
 
                 $teacher = TeacherModel::create($dataTeacher);
+                
                 if (!empty($teacher)) {
                     $avatar->move($dirFolder, $newAvatar);
                     return redirect()->route('teacher.index')
                         ->withErrors(['success' => 'Thêm mới dữ liệu thành công']);
                 }
+                $login->delete();
+                return redirect()->route('teacher.index')
+                ->withErrors(['error' => 'Thêm mới dữ liệu thất bại']);
             }
         } catch (\Throwable $th) {
             return redirect()->back();
