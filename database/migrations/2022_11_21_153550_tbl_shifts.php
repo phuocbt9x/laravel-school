@@ -16,6 +16,7 @@ return new class extends Migration
         Schema::create('shifts', function (Blueprint $table) {
             $table->id();
             $table->string('title');
+            $table->string('slug');
             $table->timestamp('time_start');
             $table->timestamp('time_end');
             $table->boolean('activated')->default(0);
