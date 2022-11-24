@@ -6,8 +6,6 @@ use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\TeacherController;
-use App\Models\DepartmentModel;
-use App\Models\TeacherModel;
 use Illuminate\Support\Facades\Route;
 
 /*
