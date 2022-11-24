@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('password');
             $table->enum('level', [1, 2, 3]);
             $table->boolean('activated')->default(0);
+            $table->rememberToken();
             $table->timestamps();
         });
     }

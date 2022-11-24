@@ -5,6 +5,8 @@ use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SubjectController;
+
+use App\Http\Controllers\LoginController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -19,12 +21,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('homepage');
-})->name('homepage');
-
+Route::group(['controller' => LoginController::class, 'prefix' => 'login', 'as' => 'login.'], function () {
+    Route::get('/', 'index')->name('index');
+    Route::post('process', 'login')->name('login');
+    Route::get('logout', 'logout')->name('logout');
+});
 
 Route::middleware('checkLogin')->group(function () {
+    Route::get('/', function () {
+        return view('homepage');
+    })->name('homepage');
     Route::group(['controller' => TeacherController::class, 'prefix' => 'teacher', 'as' => 'teacher.'], function () {
         Route::get('/', 'index')->name('index');
         Route::get('create', 'create')->name('create');

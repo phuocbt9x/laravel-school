@@ -7,7 +7,6 @@ use App\Http\Requests\TeacherRequest\UpdateRequest;
 use App\Models\LoginModel;
 use App\Models\TeacherModel;
 use Illuminate\Http\Request;
-use Yajra\DataTables\DataTables;
 
 class TeacherController extends Controller
 {
@@ -42,6 +41,7 @@ class TeacherController extends Controller
     {
         try {
             $login = LoginModel::create($request->only(['email', 'password', 'level', 'activated']));
+
             if (!empty($login)) {
                 $request->merge([
                     'login_id' => $login->id
@@ -58,6 +58,7 @@ class TeacherController extends Controller
                 }
 
                 $teacher = TeacherModel::create($dataTeacher);
+
                 if (!empty($teacher)) {
                     $avatar->move($dirFolder, $newAvatar);
                     return redirect()->route('teacher.index')
