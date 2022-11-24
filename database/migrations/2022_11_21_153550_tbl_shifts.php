@@ -15,9 +15,10 @@ return new class extends Migration
     {
         Schema::create('shifts', function (Blueprint $table) {
             $table->id();
-            $table->string('title');
-            $table->timestamp('time_start');
-            $table->timestamp('time_end');
+            $table->string('title')->unique();
+            $table->string('slug');
+            $table->time('time_start');
+            $table->time('time_end');
             $table->boolean('activated')->default(0);
             $table->timestamps();
         });
