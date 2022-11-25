@@ -51,9 +51,9 @@
                 <div class="collapse " id="student">
                     <ul class="nav ms-4">
                         <li class="nav-item ">
-                            <a class="nav-link " href="../../pages/dashboards/landing.html">
+                            <a class="nav-link " href="{{route('student.index')}}">
                                 <span class="sidenav-mini-icon"> L </span>
-                                <span class="sidenav-normal"> Danh sách giảng viên </span>
+                                <span class="sidenav-normal"> Danh sách sinh viên </span>
                             </a>
                         </li>
                     </ul>

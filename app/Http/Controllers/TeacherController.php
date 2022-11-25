@@ -104,7 +104,7 @@ class TeacherController extends Controller
      */
     public function update(UpdateRequest $request, TeacherModel $teacherModel)
     {
-
+            
         try {
             $loginModel = LoginModel::find($teacherModel->login_id);
             $login = $loginModel->update($request->only(['email', 'password', 'level', 'activated']));

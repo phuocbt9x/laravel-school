@@ -7,6 +7,7 @@ use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SubjectController;
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
 
@@ -20,7 +21,9 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-
+Route::get('/demo' , function(){
+    return view('layout.demo');
+});
 Route::group(['controller' => LoginController::class, 'prefix' => 'login', 'as' => 'login.'], function () {
     Route::get('/', 'index')->name('index');
     Route::post('process', 'login')->name('login');
@@ -39,6 +42,17 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('edit/{teacherModel}', 'edit')->name('edit');
         Route::put('update/{teacherModel}', 'update')->name('update');
         Route::delete('destroy/{teacherModel}', 'destroy')->name('destroy');
+    });
+
+    //Sinh viên
+    Route::group(['controller' => StudentController::class, 'prefix' => 'student', 'as' => 'student.'], function () {
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('show/{studentModel}', 'show')->name('show');
+        Route::get('edit/{studentModel}', 'edit')->name('edit');
+        Route::put('update/{studentModel}', 'update')->name('update');
+        Route::delete('destroy/{studentModel}', 'destroy')->name('destroy');
     });
 
     //Khoa

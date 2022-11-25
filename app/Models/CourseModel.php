@@ -18,6 +18,10 @@ class CourseModel extends Model
         return 'slug';
     }
 
+    public function getCourseName(){
+        return $this->hasMany(StudentModel::class,'course_id' , 'id');
+    }
+
     public function status()
     {
         switch ($this->activated) {

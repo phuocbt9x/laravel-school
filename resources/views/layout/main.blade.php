@@ -13,6 +13,7 @@
     <link href="{{ asset('assets') }}/css/nucleo-icons.css" rel="stylesheet" />
     <link href="{{ asset('assets') }}/css/nucleo-svg.css" rel="stylesheet" />
     <link href="{{ asset('assets') }}/css/nucleo-svg.css" rel="stylesheet" />
+    <link href="{{ asset('assets') }}/css/fullcalendar.min.css" rel="stylesheet" />
     <link id="pagestyle" href="{{ asset('assets') }}/css/argon-dashboard.min.css?v=2.0.5" rel="stylesheet" />
     <link rel="stylesheet" href="//cdn.datatables.net/1.10.7/css/jquery.dataTables.min.css">
     <!-- SweetAlert2 -->
@@ -22,6 +23,7 @@
 
     <script src="https://kit.fontawesome.com/42d5adcbca.js" crossorigin="anonymous"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    
     @stack('link')
 </head>
 
@@ -47,6 +49,7 @@
         </div>
     </main>
 
+    <script src="{{ asset('assets') }}/js/jquery.min.js"></script>
     <script src="{{ asset('assets') }}/js/core/popper.min.js"></script>
     <script src="{{ asset('assets') }}/js/core/bootstrap.min.js"></script>
     <script src="{{ asset('assets') }}/js/apiAddress.js"></script>
@@ -59,7 +62,6 @@
     </script>
     <script src="{{ asset('assets') }}/js/plugins/perfect-scrollbar.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/smooth-scrollbar.min.js"></script>
-
     <script src="{{ asset('assets') }}/js/plugins/dragula/dragula.min.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/jkanban/jkanban.js"></script>
     <script src="{{ asset('assets') }}/js/plugins/datatables.js"></script>
@@ -78,7 +80,7 @@
     <!-- SweetAlert2 -->
     <script src="{{ asset('assets') }}/js/plugins/sweetalert2/sweetalert2.min.js"></script>
     <!-- Toastr -->
-    <script src="{{ asset('assets') }}/css/toastr/toastr.min.js"></script>
+
     @stack('script')
     @error('success')
     <script>
@@ -90,6 +92,9 @@
         toastMessageDanger('{{ $message }}');
     </script>
     @enderror
+
+    
+
 </body>
 
 </html>
