@@ -16,13 +16,10 @@ class StudentController extends Controller
         $students = StudentModel::orderBy('id', 'ASC')->get();
         return view('student.index', compact('students'));
     }
-    
-    public function create()
+
+    public function create(CourseModel $courseModel)
     {
-        $courses = CourseModel::query()->get();
-        return view('student.create',[
-            'courses' => $courses,
-        ]);
+        return view('student.create', compact('courseModel'));
     }
 
     /**
@@ -33,6 +30,7 @@ class StudentController extends Controller
      */
     public function store(StoreRequest $request)
     {
+        dd($request);
         try {
             $login = LoginModel::create($request->only(['email', 'password', 'level', 'activated']));
             if (!empty($login)) {
@@ -65,7 +63,7 @@ class StudentController extends Controller
             return redirect()->back();
         }
     }
-    
+
     /**
      * Display the specified resource.
      *
@@ -74,7 +72,7 @@ class StudentController extends Controller
      */
     public function show(StudentModel $studentModel)
     {
-    
+
         return view('student.detail', compact('studentModel'));
     }
 
@@ -87,7 +85,7 @@ class StudentController extends Controller
     public function edit(StudentModel $studentModel)
     {
         $courses = CourseModel::get();
-        return view('student.update', compact('studentModel' , 'courses' ));
+        return view('student.update', compact('studentModel', 'courses'));
     }
 
     /**

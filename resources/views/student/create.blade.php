@@ -27,13 +27,15 @@
                         action="{{ route('student.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
+                        <input type="hidden" name="level" value="3">
+                        <input type="hidden" name="course_id" value="{{ $courseModel->id }}">
                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active"
                             data-animation="FadeIn">
                             <h5 class="font-weight-bolder mb-0">About me</h5>
                             <p class="mb-0 text-sm">Mandatory informations</p>
                             <div class="multisteps-form__content">
                                 <div class="row mt-3">
-                                    <div class="col-12 col-sm-6">
+                                    <div class="col-12">
                                         <label>Họ và tên</label>
                                         <input class="multisteps-form__input form-control" type="text"
                                             placeholder="eg. Michael" name="fullname"
@@ -44,6 +46,8 @@
                                         </div>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="row mt-3">
                                     <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                         <label>Giới tính</label>
                                         <div class="d-flex justify-content-between">
@@ -73,8 +77,6 @@
                                         </div>
                                         @enderror
                                     </div>
-                                </div>
-                                <div class="row mt-3">
                                     <div class="col-12 col-sm-6">
                                         <label>Ngày sinh</label>
                                         <input class="multisteps-form__input form-control" type="date"
@@ -85,23 +87,6 @@
                                             {{ $message }}
                                         </div>
                                         @enderror
-                                    </div>
-                                    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                                        <input type="hidden" name="level" value="3">
-                                            <label>Lớp học</label>
-                                            <select name="course_id" id="course_id" class="multisteps-form__input form-control">
-                                                <option value=""> Chọn lớp học</option>
-                                                @foreach ($courses as $course)
-                                                    <option value="{{$course->id}}">
-                                                        {{$course->name}}
-                                                    </option>
-                                                @endforeach
-                                            </select>
-                                            @error('phone')
-                                            <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
-                                                {{ $message }}
-                                            </div>
-                                            @enderror
                                     </div>
                                 </div>
                                 <div class="row mt-3">
@@ -146,7 +131,7 @@
                                     </div>
                                 </div>
                                 <div class="row mt-3">
-                                    
+
                                 </div>
                                 <div class="row mt-3">
                                     <div class="col-12 col-sm-6 mt-3 mt-sm-0 d-flex">
@@ -179,9 +164,7 @@
                                     <div class="col">
                                         <label>Tỉnh/Thành</label>
                                         <select name="city_id" id="city_id" class="multisteps-form__input form-control">
-                                            <option value="">Chọn tỉnh/thành</option
-                                                value="{{ old('city_id') ?? '' }}"
-                                            >
+                                            <option value="">Chọn tỉnh/thành</option value="{{ old('city_id') ?? '' }}">
                                         </select>
                                         @error('city_id')
                                         <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
@@ -196,8 +179,7 @@
                                         <select name="district_id" id="district_id"
                                             class="multisteps-form__input form-control">
                                             <option value="">Chọn quận/huyện</option
-                                                value="{{ old('district_id') ?? '' }}"
-                                            >
+                                                value="{{ old('district_id') ?? '' }}">
                                         </select>
                                         @error('district_id')
                                         <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
@@ -208,9 +190,7 @@
                                     <div class="col-12 col-sm-6">
                                         <label>Xã/Phường</label>
                                         <select name="ward_id" id="ward_id" class="multisteps-form__input form-control">
-                                            <option value="">Chọn phường/xã</option
-                                                value="{{ old('ward_id') ?? '' }}"    
-                                            >
+                                            <option value="">Chọn phường/xã</option value="{{ old('ward_id') ?? '' }}">
                                         </select>
                                         @error('ward_id')
                                         <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">

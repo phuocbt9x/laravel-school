@@ -35,6 +35,10 @@
                                 {!! $course->status() !!}
                             </td>
                             <td class="text-sm font-weight-normal">
+                                <a href="{{ route('course.show', $course->slug) }}" class="badge bg-gradient-info"
+                                    title="Chi tiết">
+                                    <i class="fas fa-search"></i>
+                                </a>
                                 <a href="{{ route('course.edit', $course->slug) }}" class="badge bg-gradient-secondary"
                                     title="Chỉnh sửa">
                                     <i class="fas fa-edit"></i>

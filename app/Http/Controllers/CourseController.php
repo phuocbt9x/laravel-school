@@ -52,6 +52,18 @@ class CourseController extends Controller
     }
 
     /**
+     * Display the specified resource.
+     *
+     * @param  \App\Models\TeacherModel  $teacherModel
+     * @return \Illuminate\Http\Response
+     */
+    public function show(CourseModel $courseModel)
+    {
+        return view('course.detail', compact('courseModel'));
+    }
+
+
+    /**
      * Show the form for editing the specified resource.
      *
      * @param  \App\Models\CourseModel  $courseModel
