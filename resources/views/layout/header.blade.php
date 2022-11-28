@@ -31,12 +31,12 @@
                     <a href="javascript:;" class="nav-link text-white p-0" id="dropdownMenuButton"
                         data-bs-toggle="dropdown" aria-expanded="false">
                         <i class="fa fa-user me-sm-1"></i>
-                        <span class="d-sm-inline d-none">Sign In</span>
+                        <span class="d-sm-inline d-none">{{Auth::user()->getInfo->fullname}}</span>
                     </a>
                     <ul style="top: 0.25rem!important;" class="dropdown-menu dropdown-menu-end px-2 py-3 me-sm-n4"
                         aria-labelledby="dropdownMenuButton">
                         <li>
-                            <a class="dropdown-item border-radius-md" href="javascript:;">
+                            <a class="dropdown-item border-radius-md" href="{{route('login.logout')}}">
                                 <span style="margin-right: 20px;" class="font-weight-bold">Đăng xuất</span>
                                 <i class="fas fa-sign-out-alt"></i>
                             </a>

@@ -25,6 +25,7 @@ class UpdateRequest extends FormRequest
     public function rules()
     {
         $id = request()->route()->teacherModel->id;
+
         return [
             'fullname' => 'required|min:3|max:150',
             'gender' => 'required|boolean',
