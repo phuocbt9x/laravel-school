@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MajorController;
@@ -21,7 +22,8 @@ use Illuminate\Support\Facades\Route;
 | contains the "web" middleware group. Now create something great!
 |
 */
-Route::get('/demo' , function(){
+
+Route::get('/demo', function () {
     return view('layout.demo');
 });
 Route::group(['controller' => LoginController::class, 'prefix' => 'login', 'as' => 'login.'], function () {
@@ -48,7 +50,7 @@ Route::middleware('checkLogin')->group(function () {
     //Sinh viên
     Route::group(['controller' => StudentController::class, 'prefix' => 'student', 'as' => 'student.'], function () {
         Route::get('/', 'index')->name('index');
-        Route::get('create', 'create')->name('create');
+        Route::get('create/{courseModel}', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::get('show/{studentModel}', 'show')->name('show');
         Route::get('edit/{studentModel}', 'edit')->name('edit');
@@ -107,12 +109,25 @@ Route::middleware('checkLogin')->group(function () {
     //Lớp học
     Route::group(['controller' => CourseController::class, 'prefix' => 'course', 'as' => 'course.'], function () {
         Route::get('/', 'index')->name('index');
-        Route::middleware('checkLevelLogin')->group(function(){
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');
+        Route::get('show/{courseModel}', 'show')->name('show');
+        Route::get('edit/{courseModel}', 'edit')->name('edit');
+        Route::put('update/{courseModel}', 'update')->name('update');
+        Route::delete('destroy/{courseModel}', 'destroy')->name('destroy');
+    });
+
+    //Phân công dạy học
+    Route::middleware('checkLevelLogin')->group(function(){
+        Route::group(['controller' => AssignmentController::class , 'prefix' => 'assignment' , 'as' => 'assignment.'], function(){
+            Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
-            Route::post('store', 'store')->name('store');
-            Route::get('edit/{courseModel}', 'edit')->name('edit');
-            Route::put('update/{courseModel}', 'update')->name('update');
-            Route::delete('destroy/{courseModel}', 'destroy')->name('destroy');
+            Route::post('store', 'store')->name('store');      
+            Route::get('show/{assignmentModel}', 'show')->name('show');      
+            Route::get('edit/{assignmentModel}', 'edit')->name('edit');
+            Route::put('update/{assignmentModel}', 'update')->name('update');
+            Route::delete('destroy/{assignmentModel}', 'destroy')->name('destroy');
         });
     });
+
 });

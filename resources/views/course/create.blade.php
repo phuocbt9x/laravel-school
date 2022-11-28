@@ -19,8 +19,8 @@
             </div>
             <div class="row">
                 <div class="col-12 col-lg-8 m-auto">
-                    <form class="multisteps-form__form mb-8" style="height: 408px;" action="{{ route('course.store') }}"
-                        method="POST" enctype="multipart/form-data">
+                    <form class="multisteps-form__form mb-8" style="height: 408px;" 
+                        action="{{ route('course.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
                         @method('POST')
                         <div class="card multisteps-form__panel p-3 border-radius-xl bg-white js-active"

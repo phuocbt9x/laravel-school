@@ -18,8 +18,14 @@ class CourseModel extends Model
         return 'slug';
     }
 
-    public function getCourseName(){
-        return $this->hasMany(StudentModel::class,'course_id' , 'id');
+    public function department()
+    {
+        return $this->hasOne(DepartmentModel::class, 'id', 'department_id');
+    }
+
+    public function getCourseName()
+    {
+        return $this->hasMany(StudentModel::class, 'course_id', 'id');
     }
 
     public function status()
@@ -35,10 +41,5 @@ class CourseModel extends Model
         }
 
         return $status;
-    }
-
-    public function department()
-    {
-        return $this->hasOne(DepartmentModel::class, 'id', 'department_id');
     }
 }
