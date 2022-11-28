@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MajorController;
@@ -35,16 +36,17 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('/', function () {
         return view('homepage');
     })->name('homepage');
-    Route::group(['controller' => TeacherController::class, 'prefix' => 'teacher', 'as' => 'teacher.'], function () {
-        Route::get('/', 'index')->name('index');
-        Route::get('create', 'create')->name('create');
-        Route::post('store', 'store')->name('store');
-        Route::get('show/{teacherModel}', 'show')->name('show');
-        Route::get('edit/{teacherModel}', 'edit')->name('edit');
-        Route::put('update/{teacherModel}', 'update')->name('update');
-        Route::delete('destroy/{teacherModel}', 'destroy')->name('destroy');
+    Route::middleware('checkLevelLogin')->group(function(){
+        Route::group(['controller' => TeacherController::class, 'prefix' => 'teacher', 'as' => 'teacher.'], function () {
+                Route::get('/', 'index')->name('index');
+                Route::get('create', 'create')->name('create');
+                Route::post('store', 'store')->name('store');
+                Route::get('show/{teacherModel}', 'show')->name('show');
+                Route::get('edit/{teacherModel}', 'edit')->name('edit');
+                Route::put('update/{teacherModel}', 'update')->name('update');
+                Route::delete('destroy/{teacherModel}', 'destroy')->name('destroy');
+        });
     });
-
     //Sinh viên
     Route::group(['controller' => StudentController::class, 'prefix' => 'student', 'as' => 'student.'], function () {
         Route::get('/', 'index')->name('index');
@@ -53,7 +55,9 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('show/{studentModel}', 'show')->name('show');
         Route::get('edit/{studentModel}', 'edit')->name('edit');
         Route::put('update/{studentModel}', 'update')->name('update');
-        Route::delete('destroy/{studentModel}', 'destroy')->name('destroy');
+        Route::middleware('checkLevelLogin')->group(function(){
+            Route::delete('destroy/{studentModel}', 'destroy')->name('destroy');
+        });
     });
 
     //Khoa
@@ -62,8 +66,10 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::get('edit/{departmentModel}', 'edit')->name('edit');
-        Route::put('update/{departmentModel}', 'update')->name('update');
-        Route::delete('destroy/{departmentModel}', 'destroy')->name('destroy');
+        Route::middleware('checkLevelLogin')->group(function(){        
+            Route::put('update/{departmentModel}', 'update')->name('update');
+            Route::delete('destroy/{departmentModel}', 'destroy')->name('destroy');
+        });
     });
 
     //Ngành
@@ -72,8 +78,10 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::get('edit/{majorModel}', 'edit')->name('edit');
-        Route::put('update/{majorModel}', 'update')->name('update');
-        Route::delete('destroy/{majorModel}', 'destroy')->name('destroy');
+        Route::middleware('checkLevelLogin')->group(function(){
+            Route::put('update/{majorModel}', 'update')->name('update');
+            Route::delete('destroy/{majorModel}', 'destroy')->name('destroy');
+        });
     });
 
     //Môn học
@@ -82,8 +90,10 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');
         Route::get('edit/{subjectModel}', 'edit')->name('edit');
-        Route::put('update/{subjectModel}', 'update')->name('update');
-        Route::delete('destroy/{subjectModel}', 'destroy')->name('destroy');
+        Route::middleware('checkLevelLogin')->group(function(){
+            Route::put('update/{subjectModel}', 'update')->name('update');
+            Route::delete('destroy/{subjectModel}', 'destroy')->name('destroy');
+        });
     });
 
     //Ca học
@@ -106,4 +116,18 @@ Route::middleware('checkLogin')->group(function () {
         Route::put('update/{courseModel}', 'update')->name('update');
         Route::delete('destroy/{courseModel}', 'destroy')->name('destroy');
     });
+
+    //Phân công dạy học
+    Route::middleware('checkLevelLogin')->group(function(){
+        Route::group(['controller' => AssignmentController::class , 'prefix' => 'assignment' , 'as' => 'assignment.'], function(){
+            Route::get('/', 'index')->name('index');
+            Route::get('create', 'create')->name('create');
+            Route::post('store', 'store')->name('store');      
+            Route::get('show/{assignmentModel}', 'show')->name('show');      
+            Route::get('edit/{assignmentModel}', 'edit')->name('edit');
+            Route::put('update/{assignmentModel}', 'update')->name('update');
+            Route::delete('destroy/{assignmentModel}', 'destroy')->name('destroy');
+        });
+    });
+
 });

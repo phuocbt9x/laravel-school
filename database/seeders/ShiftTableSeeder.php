@@ -2,11 +2,11 @@
 
 namespace Database\Seeders;
 
-use App\Models\SubjectModel;
+use App\Models\ShiftModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class SubjectTableSeeder extends Seeder
+class ShiftTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +15,6 @@ class SubjectTableSeeder extends Seeder
      */
     public function run()
     {
-        SubjectModel::factory()->count(14)->create();
+        //ShiftModel::factory()->count(5)->create();
     }
 }

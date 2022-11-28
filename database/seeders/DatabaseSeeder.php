@@ -18,8 +18,8 @@ class DatabaseSeeder extends Seeder
             LoginTableSeeder::class,
             DepartmentTableSeeder::class,
             CourseTableSeeder::class,
-            MajorTableSeeder::class,
-            // StudentTableSeeder::class
+            SubjectTableSeeder::class,
+            ShiftTableSeeder::class
         ]);
     }
 }

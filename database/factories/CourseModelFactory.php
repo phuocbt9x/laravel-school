@@ -72,6 +72,7 @@ class CourseModelFactory extends Factory
         $name = $this->faker->unique()->randomKey($class);
         $departmentId = $class[$name];
         $slug = Str::slug($name);
+
         return [
             'name' => $name,
             'slug' => $slug,

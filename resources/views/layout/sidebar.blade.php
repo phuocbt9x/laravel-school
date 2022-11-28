@@ -37,6 +37,12 @@
                                 <span class="sidenav-normal"> Danh sách giảng viên </span>
                             </a>
                         </li>
+                        <li class="nav-item ">
+                            <a class="nav-link " href="{{ route('assignment.index') }}">
+                                <span class="sidenav-mini-icon"> G </span>
+                                <span class="sidenav-normal"> Phân công dạy học </span>
+                            </a>
+                        </li>
                     </ul>
                 </div>
             </li>
