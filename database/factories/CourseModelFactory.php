@@ -18,80 +18,59 @@ class CourseModelFactory extends Factory
     public function definition()
     {
         $class = [
-            1 => [
-                'CNTT-10A1',
-                'CNTT-10A2',
-                'CNTT-10A3',
-                'CNTT-10A4',
-                'CNTT-10A5'
-            ],
-            2 => [
-                'CK-10A1',
-                'CK-10A2',
-                'CK-10A3',
-                'CK-10A4',
-                'CK-10A5'
-            ],
-            3 => [
-                'CN-OTO-10A1',
-                'CN-OTO-10A2',
-                'CN-OTO-10A3',
-                'CN-OTO-10A4',
-                'CN-OTO-10A5'
-            ],
-            4 => [
-                'DIEN-10A1',
-                'DIEN-10A2',
-                'DIEN-10A3',
-                'DIEN-10A4',
-                'DIEN-10A5'
-            ],
-            5 => [
-                'DIEN-TU-10A1',
-                'DIEN-TU-10A2',
-                'DIEN-TU-10A3',
-                'DIEN-TU-10A4',
-                'DIEN-TU-10A5'
-            ],
-            6 => [
-                'DL-10A1',
-                'DL-10A2',
-                'DL-10A3',
-                'DL-10A4',
-                'DL-10A5'
-            ],
-            7 => [
-                'QLKD-10A1',
-                'QLKD-10A2',
-                'QLKD-10A3',
-                'QLKD-10A4',
-                'QLKD-10A5'
-            ],
-            8 => [
-                'KT-KT-10A1',
-                'KT-KT-10A2',
-                'KT-KT-10A3',
-                'KT-KT-10A4',
-                'KT-KT-10A5'
-            ],
-            9 => [
-                'CNH-10A1',
-                'CNH-10A2',
-                'CNH-10A3',
-                'CNH-10A4',
-                'CNH-10A5'
-            ],
-            10 => [
-                'NN-10A1',
-                'NN-10A2',
-                'NN-10A3',
-                'NN-10A4',
-                'NN-10A5'
-            ],
+            'CNTT-10A1' => 1,
+            'CNTT-10A2' => 1,
+            'CNTT-10A3' => 1,
+            'CNTT-10A4' => 1,
+            'CNTT-10A5' => 1,
+            'CK-10A1' => 2,
+            'CK-10A2' => 2,
+            'CK-10A3' => 2,
+            'CK-10A4' => 2,
+            'CK-10A5' => 2,
+            'CN-OTO-10A1' => 3,
+            'CN-OTO-10A2' => 3,
+            'CN-OTO-10A3' => 3,
+            'CN-OTO-10A4' => 3,
+            'CN-OTO-10A5' => 3,
+            'DIEN-10A1' => 4,
+            'DIEN-10A2' => 4,
+            'DIEN-10A3' => 4,
+            'DIEN-10A4' => 4,
+            'DIEN-10A5' => 4,
+            'DIEN-TU-10A1' => 5,
+            'DIEN-TU-10A2' => 5,
+            'DIEN-TU-10A3' => 5,
+            'DIEN-TU-10A4' => 5,
+            'DIEN-TU-10A5' => 5,
+            'DL-10A1' => 6,
+            'DL-10A2' => 6,
+            'DL-10A3' => 6,
+            'DL-10A4' => 6,
+            'DL-10A5' => 6,
+            'QLKD-10A1' => 7,
+            'QLKD-10A2' => 7,
+            'QLKD-10A3' => 7,
+            'QLKD-10A4' => 7,
+            'QLKD-10A5' => 7,
+            'KT-KT-10A1' => 8,
+            'KT-KT-10A2' => 8,
+            'KT-KT-10A3' => 8,
+            'KT-KT-10A4' => 8,
+            'KT-KT-10A5' => 8,
+            'CNH-10A1' => 9,
+            'CNH-10A2' => 9,
+            'CNH-10A3' => 9,
+            'CNH-10A4' => 9,
+            'CNH-10A5' => 9,
+            'NN-10A1' => 10,
+            'NN-10A2' => 10,
+            'NN-10A3' => 10,
+            'NN-10A4' => 10,
+            'NN-10A5' => 10,
         ];
-        $departmentId = array_rand($class);
-        $classArr = $class[$departmentId];
-        $name = $this->faker->unique()->randomElement($classArr);
+        $name = $this->faker->unique()->randomKey($class);
+        $departmentId = $class[$name];
         $slug = Str::slug($name);
         return [
             'name' => $name,

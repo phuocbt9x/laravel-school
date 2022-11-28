@@ -2,7 +2,10 @@
 
 namespace Database\Seeders;
 
+use App\Models\LoginModel;
+use App\Models\StudentModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use Illuminate\Database\Eloquent\Factories\Sequence;
 use Illuminate\Database\Seeder;
 
 class StudentTableSeeder extends Seeder
@@ -14,6 +17,6 @@ class StudentTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        StudentModel::factory()->count(200)->create();
     }
 }

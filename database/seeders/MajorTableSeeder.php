@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\MajorModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -14,6 +15,6 @@ class MajorTableSeeder extends Seeder
      */
     public function run()
     {
-        //
+        MajorModel::factory()->count(10)->create();
     }
 }

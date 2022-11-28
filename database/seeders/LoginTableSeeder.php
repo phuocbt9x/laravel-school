@@ -15,6 +15,6 @@ class LoginTableSeeder extends Seeder
      */
     public function run()
     {
-        LoginModel::factory()->count(5)->create();
+        LoginModel::factory()->count(200)->create();
     }
 }
