@@ -5,7 +5,7 @@
         <div class="row gx-4">
             <div class="col-auto">
                 <div class="avatar avatar-xxl position-relative">
-                    <img src="{{ asset($studentModel->avatar) }}" alt="profile_image"
+                    <img src="{{ $studentModel->avatar() }}" alt="profile_image"
                         class="w-100 border-radius-lg shadow-sm">
                 </div>
             </div>
@@ -17,7 +17,7 @@
                     <p class="mb-0 font-weight-bold text-sm">
                         {!! $studentModel->level() !!}
                     </p>
-                    
+
                     <p class="mb-0 font-weight-bold text-sm">
                         {!! $studentModel->getCourseName() !!}
                     </p>

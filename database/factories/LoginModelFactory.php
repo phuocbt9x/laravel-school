@@ -18,7 +18,7 @@ class LoginModelFactory extends Factory
     {
         return [
             'email' => $this->faker->unique()->safeEmail(),
-            'password' => bcrypt('123456'),
+            'password' => bcrypt(123456),
             'level' => 3,
             'activated' => 1
         ];

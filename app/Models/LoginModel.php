@@ -14,14 +14,12 @@ class LoginModel extends User
     protected $fillable = ['email', 'password', 'level', 'activated'];
     protected $hidden = ['password'];
 
-    public function getInfoTeacher()
+    public function getInfo()
     {
+        if ($this->level == 3) {
+            return $this->hasOne(StudentModel::class, 'login_id', 'id');
+        }
         return $this->hasOne(TeacherModel::class, 'login_id', 'id');
-    }
-
-    public function getInfoStudent()
-    {
-        return $this->hasOne(StudentModel::class, 'login_id', 'id');
     }
 
     public function isManager()

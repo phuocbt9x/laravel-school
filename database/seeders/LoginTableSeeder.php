@@ -19,7 +19,7 @@ class LoginTableSeeder extends Seeder
             StudentModel::factory()->count(1)->state(function (array $attributes, LoginModel $login) {
                 return ['login_id' => $login->id];
             }),
-            'getInfoStudent'
+            'getInfo'
         )->create();
     }
 }

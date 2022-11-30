@@ -87,4 +87,12 @@ class StudentModel extends Model
             '.' . substr($this->phone, 7);
         return $phone;
     }
+
+    public function avatar()
+    {
+        if (strpos($this->avatar, 'http')) {
+            return $this->avatar;
+        }
+        return asset($this->avatar);
+    }
 }
