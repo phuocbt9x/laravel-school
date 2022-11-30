@@ -16,7 +16,7 @@ class TeacherModel extends Model
 
     public function getInfoLogin()
     {
-        return $this->hasOne(LoginModel::class, 'id', 'login_id');
+        return $this->belongsTo(LoginModel::class, 'login_id');
     }
 
     public function stringGender()

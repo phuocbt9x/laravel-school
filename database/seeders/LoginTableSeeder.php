@@ -3,7 +3,7 @@
 namespace Database\Seeders;
 
 use App\Models\LoginModel;
-use Illuminate\Database\Console\Seeds\WithoutModelEvents;
+use App\Models\StudentModel;
 use Illuminate\Database\Seeder;
 
 class LoginTableSeeder extends Seeder
@@ -15,6 +15,11 @@ class LoginTableSeeder extends Seeder
      */
     public function run()
     {
-        LoginModel::factory()->count(200)->create();
+        LoginModel::factory()->count(200)->has(
+            StudentModel::factory()->count(1)->state(function (array $attributes, LoginModel $login) {
+                return ['login_id' => $login->id];
+            }),
+            'getInfoStudent'
+        )->create();
     }
 }

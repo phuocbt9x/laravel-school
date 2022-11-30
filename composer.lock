@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "9815dea4f0848dc5fd6e089895dcf2d2",
+    "content-hash": "5cac6fc253cb2d70290de93600e0b2e7",
     "packages": [
         {
             "name": "brick/math",
@@ -61,6 +61,68 @@
                 }
             ],
             "time": "2022-08-10T22:54:19+00:00"
+        },
+        {
+            "name": "buihuycuong/vnfaker",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/BuiHuyCuong/VNFaker.git",
+                "reference": "9427dc74f00d3734d1894e6069adc2bb43c8c026"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/BuiHuyCuong/VNFaker/zipball/9427dc74f00d3734d1894e6069adc2bb43c8c026",
+                "reference": "9427dc74f00d3734d1894e6069adc2bb43c8c026",
+                "shasum": ""
+            },
+            "default-branch": true,
+            "type": "package",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Buihuycuong\\Vnfaker\\VNFakerServiceProvider"
+                    ],
+                    "aliases": {
+                        "VNFaker": "Buihuycuong\\Vnfaker\\Facades\\VNFaker"
+                    }
+                }
+            },
+            "autoload": {
+                "files": [
+                    "src/helpers.php"
+                ],
+                "psr-4": {
+                    "Buihuycuong\\Vnfaker\\": "src"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Bui Huy Cuong",
+                    "email": "buihuycuong1510@gmail.com"
+                }
+            ],
+            "description": "VNFaker is a Laravel package that generates fake data about name, city, address, phone,... in Viet Nam",
+            "homepage": "https://github.com/BuiHuyCuong/VNFaker",
+            "keywords": [
+                "Bui Huy Cuong",
+                "Richard Bui",
+                "data",
+                "laravel",
+                "laravel faker",
+                "php",
+                "viet nam",
+                "vnfaker"
+            ],
+            "support": {
+                "issues": "https://github.com/BuiHuyCuong/VNFaker/issues",
+                "source": "https://github.com/BuiHuyCuong/VNFaker/tree/master"
+            },
+            "time": "2018-12-27T06:51:21+00:00"
         },
         {
             "name": "dflydev/dot-access-data",
@@ -7904,12 +7966,14 @@
     ],
     "aliases": [],
     "minimum-stability": "dev",
-    "stability-flags": [],
+    "stability-flags": {
+        "buihuycuong/vnfaker": 20
+    },
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
         "php": "^8.0.2"
     },
     "platform-dev": [],
-    "plugin-api-version": "2.3.0"
+    "plugin-api-version": "2.0.0"
 }

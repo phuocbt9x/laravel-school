@@ -16,12 +16,12 @@ class StudentModel extends Model
 
     public function getInfoLogin()
     {
-        return $this->hasOne(LoginModel::class, 'id', 'login_id');
+        return $this->belongsTo(LoginModel::class, 'login_id');
     }
 
     public function Course()
     {
-        return $this->hasOne(CourseModel::class, 'id' , 'course_id');
+        return $this->hasOne(CourseModel::class, 'id', 'course_id');
     }
 
     public function getCourseName()

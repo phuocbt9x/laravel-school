@@ -30,7 +30,6 @@ class StudentController extends Controller
      */
     public function store(StoreRequest $request)
     {
-        dd($request);
         try {
             $login = LoginModel::create($request->only(['email', 'password', 'level', 'activated']));
             if (!empty($login)) {

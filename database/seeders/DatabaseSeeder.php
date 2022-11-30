@@ -15,11 +15,12 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
         $this->call([
-            LoginTableSeeder::class,
             DepartmentTableSeeder::class,
             CourseTableSeeder::class,
             SubjectTableSeeder::class,
-            ShiftTableSeeder::class
+            ShiftTableSeeder::class,
+            LoginTableSeeder::class,
+            // StudentTableSeeder::class
         ]);
     }
 }

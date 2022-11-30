@@ -104,13 +104,12 @@
                         <div
                             class="col-6 d-lg-flex d-none h-100 my-auto pe-0 position-absolute top-0 end-0 text-center justify-content-center flex-column">
                             <div class="position-relative bg-gradient-primary h-100 m-3 px-7 border-radius-lg d-flex flex-column justify-content-center overflow-hidden"
-                                style="background-image: url('https://raw.githubusercontent.com/creativetimofficial/public-assets/master/argon-dashboard-pro/assets/img/signin-ill.jpg');
+                                style="background-image: url('https://png.pngtree.com/background/20210711/original/pngtree-navy-blue-simple-protection-intellectual-property-day-poster-picture-image_1113988.jpg');
           background-size: cover;">
                                 <span class="mask bg-gradient-primary opacity-6"></span>
-                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Attention is the new
-                                    currency"</h4>
-                                <p class="text-white position-relative">The more effortless the writing looks, the more
-                                    effort the writer actually put into the process.</p>
+                                <h4 class="mt-5 text-white font-weight-bolder position-relative">"Ngạn ngữ Gruzia"</h4>
+                                <p class="text-white position-relative">Học tập là hạt giống của kiến thức, kiến thức là
+                                    hạt giống của hạnh phúc.</p>
                             </div>
                         </div>
                     </div>
