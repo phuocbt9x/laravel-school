@@ -32,4 +32,9 @@ class DepartmentModel extends Model
 
         return $status;
     }
+
+    public function getCourses()
+    {
+        return $this->hasMany(CourseModel::class, 'department_id', 'id');
+    }
 }

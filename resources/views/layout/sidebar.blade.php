@@ -21,6 +21,7 @@
                     <span class="nav-link-text ms-1">Trang chủ</span>
                 </a>
             </li>
+            @can('manager')
             <li class="nav-item">
                 <a data-bs-toggle="collapse" href="#teacher" class="nav-link " aria-controls="teacher" role="button"
                     aria-expanded="false">
@@ -160,6 +161,23 @@
                     </ul>
                 </div>
             </li>
+            @endcan
+
+            @can('teacher')
+
+            @endcan
+
+            @can('student')
+            <li class="nav-item">
+                <a class="nav-link" href="{{ route('homepage') }}">
+                    <div
+                        class="icon icon-shape icon-sm text-center me-2 d-flex align-items-center justify-content-center">
+                        <i class="ni ni-shop text-dark text-sm"></i>
+                    </div>
+                    <span class="nav-link-text ms-1">Điểm học phần</span>
+                </a>
+            </li>
+            @endcan
         </ul>
     </div>
 </aside>
