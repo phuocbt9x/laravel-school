@@ -97,7 +97,8 @@ class DepartmentTableSeeder extends Seeder
                 return [
                     'name' => $nameCourse,
                     'slug' => Str::slug($nameCourse),
-                    'department_id' => $departmentModel->id
+                    'department_id' => $departmentModel->id,
+                    'activated' => 1
                 ];
             }),
             'getCourses'
