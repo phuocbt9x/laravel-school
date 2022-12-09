@@ -22,6 +22,7 @@ class DatabaseSeeder extends Seeder
             LoginTableSeeder::class,
             // StudentTableSeeder::class,
             // CourseTableSeeder::class
+            
         ]);
         $manager =  DB::table('logins')->insertGetId([
             'email' => 'admin@gmail.com',

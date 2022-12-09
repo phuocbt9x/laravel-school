@@ -24,6 +24,11 @@ class StudentModel extends Model
         return $this->hasOne(CourseModel::class, 'id', 'course_id');
     }
 
+    public function AttendanceCheck()
+    {
+        return $this->belongsToMany(AssignmentModel::class,'attendances', 'student_id', 'assignment_id' , 'id','id')->withPivot('check');
+    }
+
     public function getCourseName()
     {
         return $this->Course->name;

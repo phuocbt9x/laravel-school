@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\AssignmentController;
+use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
 use App\Http\Controllers\MajorController;
@@ -130,4 +131,16 @@ Route::middleware('checkLogin')->group(function () {
         });
     });
 
+    //Điểm danh sinh viên
+    Route::group(['controller' => AttendanceController::class , 'prefix' => 'attendance' , 'as' => 'attendance.'], function(){
+        Route::get('/', 'index')->name('index');
+        Route::post('/', 'post')->name('post');
+        Route::post('/attendance', 'attendance')->name('attendance');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');      
+        Route::get('show/{attendanceModel}', 'show')->name('show');      
+        Route::get('edit/{attendanceModel}', 'edit')->name('edit');
+        Route::put('update/{attendanceModel}', 'update')->name('update');
+        Route::delete('destroy/{attendanceModel}', 'destroy')->name('destroy');
+    });
 });

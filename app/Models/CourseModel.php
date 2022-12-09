@@ -23,6 +23,11 @@ class CourseModel extends Model
         return $this->hasOne(DepartmentModel::class, 'id', 'department_id');
     }
 
+    public function getStudent()
+    {
+        return $this->hasMany(StudentModel::class, 'course_id', 'id');
+    }
+
     public function getCourseName()
     {
         return $this->hasMany(StudentModel::class, 'course_id', 'id');

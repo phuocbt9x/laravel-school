@@ -2,11 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\ShiftModel;
+use App\Models\AssignmentModel;
+use App\Models\AttendanceModel;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
-class ShiftTableSeeder extends Seeder
+class AttendanceTableSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -15,6 +16,6 @@ class ShiftTableSeeder extends Seeder
      */
     public function run()
     {
-        ShiftModel::factory()->count(4)->create();
+        //AttendanceModel::factory()->count(10)->create();
     }
 }
