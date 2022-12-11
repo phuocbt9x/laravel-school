@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\AssignmentController;
 use App\Http\Controllers\AttendanceController;
+use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SubjectController;
@@ -119,7 +121,7 @@ Route::middleware('checkLogin')->group(function () {
     });
 
     //Phân công dạy học
-    Route::middleware('checkLevelLogin')->group(function(){
+    
         Route::group(['controller' => AssignmentController::class , 'prefix' => 'assignment' , 'as' => 'assignment.'], function(){
             Route::get('/', 'index')->name('index');
             Route::get('create', 'create')->name('create');
@@ -129,11 +131,11 @@ Route::middleware('checkLogin')->group(function () {
             Route::put('update/{assignmentModel}', 'update')->name('update');
             Route::delete('destroy/{assignmentModel}', 'destroy')->name('destroy');
         });
-    });
+    
 
     //Điểm danh sinh viên
     Route::group(['controller' => AttendanceController::class , 'prefix' => 'attendance' , 'as' => 'attendance.'], function(){
-        Route::get('/', 'index')->name('index');
+        Route::get('/{id}', 'index')->name('index');
         Route::post('/', 'post')->name('post');
         Route::post('/attendance', 'attendance')->name('attendance');
         Route::get('create', 'create')->name('create');
@@ -142,5 +144,11 @@ Route::middleware('checkLogin')->group(function () {
         Route::get('edit/{attendanceModel}', 'edit')->name('edit');
         Route::put('update/{attendanceModel}', 'update')->name('update');
         Route::delete('destroy/{attendanceModel}', 'destroy')->name('destroy');
+        Route::get('/FecthFullcalendarEvents', 'attendance.post')->name('fecth');
     });
+
+    //Fullcalendar
+    Route::get('/fullcalendar', [CalendarController::class, 'index'])->name('fullcalendar.index');
+    Route::get('/FecthFullcalendarEvents/{id}', [CalendarController::class, 'fecth'])->name('fullcalendar.fecth');
+    Route::post('/create', [CalendarController::class, 'create'])->name('fullcalendar.create');
 });

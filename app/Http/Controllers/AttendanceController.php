@@ -15,120 +15,101 @@ use Yajra\DataTables\DataTables;
 
 class AttendanceController extends Controller
 {
-    public function index()
+    
+    public function index($id)
     {
-        $assignments = AssignmentModel::get();
-        return view('attendance.index', compact(['assignments']));
-    }
-    public function post(Request $request)
-    {
-        
-        // $assignments = AssignmentModel::get();
-        // $subject_id = $request->get('assignment_subject');
-        // $course_id = $request->get('assignment_course');
-        
-        // $students = StudentModel::query()->where('course_id' , $course_id)->get();        
-        // $teacher_id = Auth::user()->getInfo->id;
-        // $shifts = AssignmentModel::query()->where([
-        //     ['course_id' ,'=' , $course_id],
-        //     ['subject_id','=', $subject_id],
-        //     ['teacher_id', '=', $teacher_id]       
-        // ])->get(); 
-       
-        // $assignmentId = AssignmentModel::query()
-        //     ->where('course_id' , $course_id)
-        //     ->where('subject_id', $subject_id)
-        //     ->orderByDesc('shift_id')
-        //     ->value('id');
-        // $arrAttendance = [];
-        
-        // if(!empty($assignmentId)){
-        //     $attendanceStudents = AttendanceModel::
-        //     select([
-        //         'student_id',
-        //         'check'    
-        //     ])
-        //     ->where('assignment_id', $assignmentId)
-        //     ->get();
-        //     foreach($attendanceStudents as $attendanceStudent){
-        //         $arrAttendance[$attendanceStudent->student_id] = $attendanceStudent->check;
-        //     }
-        // }
-        // dd($request);
-        // return view('attendance.index', compact([
-        //     'students', 
-        //     'assignments',
-        //     'arrAttendance'
-        // ]));
-        $arr = [];
-        $Student_lists = CourseModel::find($request->assignment_course)->getStudent;
-        foreach($Student_lists as $Student_list){
-            
-                foreach($Student_list->AttendanceCheck as $student){
-                    $arr = [
-                        'id' => $student->pivot->pivotParent->id,
-                        'name' => $student->pivot->pivotParent->fullname,
-                        'check' => $student->pivot->check,
-                        'assignment_id' => $student->pivot->assignment_id
-                    ];
-                    
-                }   
-        }
-        return $arr;
 
+        $assignments = AssignmentModel::find($id);
+        $course_name =  $assignments->getCourseName->name;
+        $subject_name =  $assignments->getSubject->name;
+        
+       
+        $arr = [];
+        $course_id = $assignments->course_id;
+        $Student_lists = CourseModel::find($course_id)->getStudent;
+        
+        $assignmentCheck = AttendanceModel::where('assignment_id' , $id)->get();
+        
+        
+            
+                foreach($assignments->AttendanceCheck as $student){
+                    
+                    $arr []= [
+                        'id' => $student->id,
+                        'name' => $student->fullname,
+                        'check' => $student->pivot->check,
+                    ];
+                }   
+           
+            
+        
+        if(!$assignmentCheck->isNotEmpty()){
+            foreach($Student_lists as $Student_list){
+                    $arr[] = [
+                        'id' => $Student_list->id,
+                        'name' => $Student_list->fullname,
+                        'check' => '',
+                    ];
+            }
+        }
+        
+            
+           
+
+        return view('attendance.index', compact([
+            'assignments',
+            'course_name',
+            'subject_name',
+            'arr'
+        ]));
     }
+    
     
     public function attendance(Request $request)
     {
-        $course_id = $request->get('course_id');
-        $subject_id = $request->get('subject_id');
-        $teacher_id = Auth::user()->getInfo->id;
-        $checks = $request->get('arrAttendance');
-        $assignment = AssignmentModel::query()->where([
-            ['subject_id','=', $subject_id,],
-            ['course_id' ,'=' , $course_id],
-            ['teacher_id', '=', $teacher_id]       
-        ])->value('id'); 
-        
-        $name=[];
-        
-        $created_at = AttendanceModel::select('created_at')->where([['assignment_id', $assignment]])->value('date');
-        $updated_at = AttendanceModel::select('updated_at')->where([['assignment_id', $assignment]])->get();
-        // dd(date_format($created_at[0]->created_at, "Y-m") === date("Y-m"));
-        // dd( date('Y-m', strtotime(($assignment))) );
-        
-        // dd($courseId, $subjectId,$checks, $teacher_id , $assignment[0]->id);
-        if(isset($created_at)){
-            
-            if(date_format($created_at, "Y-m") === date("Y-m")){
-                foreach ($checks as $student => $check) {
-                    AttendanceModel::query()->update([
-                        'assignment_id' => $assignment,
-                        'student_id' => $student,
-                        'check' => $check
+        $assignment_id = $request->assignment_id;
+        $attendanceArray = AttendanceModel::where('assignment_id', $assignment_id)->get();
+        //dd($attendanceArray);
+        $students = $request->item;
+        // foreach($students as $id => $student){
+        //     $check = AttendanceModel::where(
+        //         ['assignment_id' , $assignment_id],
+        //         ['student_id' , $id]     
+        //     )->first('id');
+        //     dd($check);
+        //     // if($check){
+        //     //     AttendanceModel->update([
+
+        //     //     ]);
+        //     // }
+        // }
+        if(!$attendanceArray->isNotEmpty()){
+            foreach($students as $id => $student){
+                AttendanceModel::create(
+                    [
+                        'assignment_id' => $assignment_id,
+                        'student_id' => $id,
+                        'check' => $student,
                     ]);
-                }
             }
+            
         }
         else{
-            foreach ($checks as $student => $check) {
-                AttendanceModel::create([
-                    'assignment_id' => $assignment,
-                    'student_id' => $student,
-                    'check' => $check
-                ]);
+
+            foreach($students as $id => $student){
+                $attendanceModel = AttendanceModel::where([
+                    ['assignment_id' , $assignment_id],
+                    ['student_id' , $id],
+                ])->first();
+
+                $attendanceModel->update(
+                    [
+                        'check' => $student,
+                    ]);
             }
         }
-        
+        return redirect()->back();
 
-        $course_name = CourseModel::where('id' , $course_id)->value('name');
-        $subject_name = SubjectModel::where('id' , $subject_id)->value('name');
-        // dd($course_name);
-        return redirect()->route('attendance.index',  [
-            'course_id' => $course_id ,
-            'course_name' => $course_name,
-            'subject_id' => $subject_id,
-            'subject_name' => $subject_name
-        ]);
+    
     }
 }

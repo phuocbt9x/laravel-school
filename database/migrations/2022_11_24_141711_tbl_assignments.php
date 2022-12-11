@@ -19,7 +19,9 @@ return new class extends Migration
             $table->unsignedInteger('subject_id');
             $table->unsignedInteger('teacher_id');
             $table->unsignedInteger('shift_id');
-            $table->date('date');
+            $table->smallInteger('day')->comment('DayAssignmentEnum');
+            $table->date('date_start');
+            $table->date('date_end');
             $table->timestamps();
             $table->foreign('course_id')->references('id')->on('courses');
             $table->foreign('subject_id')->references('id')->on('subjects');

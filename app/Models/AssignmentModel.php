@@ -10,10 +10,19 @@ class AssignmentModel extends Model
     use HasFactory;
     protected $table = 'assignments';
     protected $fillable = [
-        'course_id' , 'subject_id' , 'teacher_id' , 'shift_id' , 'date'
+        'course_id' , 'subject_id' , 'teacher_id' , 'shift_id' , 'day', 'date_start', 'date_end'
     ];
-
+    protected $day = [2, 3, 4, 5, 6, 7, 8];
     
+    public function getAttedances()
+    {
+       return $this->hasMany(AttendanceModel::class, 'assignment_id', 'id');
+    }
+
+     public function AttendanceCheck()
+    {
+        return $this->belongsToMany(StudentModel::class,'attendances', 'assignment_id', 'student_id' , 'id','id')->withPivot('check');
+    }
 
     public function getCourseName()
     {

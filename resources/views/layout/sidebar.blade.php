@@ -181,7 +181,7 @@
                 <div class="collapse " id="shifts">
                     <ul class="nav ms-4">
                         <li class="nav-item ">
-                            <a class="nav-link " href="{{ route('shift.index') }}">
+                            <a class="nav-link " href="{{ route('assignment.index') }}">
                                 <span class="sidenav-mini-icon"> C </span>
                                 <span class="sidenav-normal"> Lịch phân công giảng dạy </span>
                             </a>

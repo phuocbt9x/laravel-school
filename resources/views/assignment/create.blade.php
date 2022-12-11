@@ -84,15 +84,41 @@
                                         @enderror
                                     </div>
                                 </div>
+
                                 <div class="row mt-3">
                                     <div class="col-12 col-sm-6">
+                                        <label>Thứ</label>
+                                        <select name="day" id="day"
+                                            class="multisteps-form__input form-control">
+                                            <option value="">Chọn thứ</option>
+                                            @foreach ($arrDayAssignment as $option=>$value)
+                                                <option value="{{ $value }}"
+                                                    @if ($loop->first) 
+                                                        checked  
+                                                    @endif
+                                                >
+                                                {{$option}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('day')
+                                        <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                         <label>Ca học</label>
                                         <select name="shift_id" id="shift_id"
                                             class="multisteps-form__input form-control">
                                             <option value="">Chọn ca học</option>
                                             @foreach ($shifts as $shift)
-                                                <option value="{{$shift->id}}">
-                                                    {{$shift->title}}
+                                                <option value="{{ $shift->id }}"
+                                                    @if ($loop->first) 
+                                                        checked  
+                                                    @endif
+                                                >
+                                                {{$shift->title}}
                                                 </option>
                                             @endforeach
                                         </select>
@@ -102,18 +128,33 @@
                                         </div>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="row mt-3">
                                     <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                                        <label>Ngày</label>
+                                        <label>Thời gian bắt đầu</label>
                                         <input class="multisteps-form__input form-control" type="date"
-                                             name="date"
-                                            value="{{ date('Y-m-d', strtotime((old('date')))) ??  "" }}">
-                                        @error('date')
+                                            placeholder="eg. Creative Tim" name="date_start"
+                                            value="{{ date('Y-m-d', strtotime(old('date_start') ?? "now")) ?? '' }}">
+                                        @error('date_start')
+                                        <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <label>Thời gian kết thúc</label>
+                                        <input class="multisteps-form__input form-control" type="date"
+                                            placeholder="eg. Creative Tim" name="date_end"
+                                            value="{{ date('Y-m-d', strtotime(old('date_end') ?? "+2months" )) ?? '' }}">
+                                        @error('date_end')
                                         <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                 </div>
+
+
                                 <div class="row mt-3">
                                     <div class="col-12 col-sm-6 mt-3 mt-sm-0 d-flex">
                                         <label class="text-sm me-3 my-auto">Kích hoạt</label>

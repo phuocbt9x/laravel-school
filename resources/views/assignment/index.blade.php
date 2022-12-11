@@ -17,7 +17,9 @@
                             <th>Tên môn học</th>
                             <th>Tên giáo viên</th>
                             <th>Ca</th>
-                            <th>Thời gian</th>
+                            <th>Thứ</th>
+                            <th>Thời gian bắt đầu</th>
+                            <th>Thời gian kết thúc</th>
                             <th>Chức năng</th>
                         </tr>
                     </thead>
@@ -40,7 +42,13 @@
                                 {!! $assignment->getShift->title !!}
                             </td>
                             <td class="text-sm font-weight-normal">
-                                {!! $assignment->getDate() !!}
+                                {!! $assignment->day !!}
+                            </td>
+                            <td class="text-sm font-weight-normal">
+                                {!!  date('d-m-Y', strtotime($assignment->date_start)) !!}
+                            </td>
+                            <td class="text-sm font-weight-normal">
+                                {!! date('d-m-Y', strtotime($assignment->date_end)) !!}
                             </td>
                             <td class="text-sm font-weight-normal">
                                 <a href="{{ route('assignment.show', $assignment->id) }}" class="badge bg-gradient-info"

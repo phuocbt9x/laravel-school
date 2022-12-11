@@ -85,7 +85,29 @@
                                         @enderror
                                     </div>
                                 </div>
+                                {{-- dsd --}}
                                 <div class="row mt-3">
+                                    <div class="col-12 col-sm-6">
+                                        <label>Thứ</label>
+                                        <select name="day" id="day"
+                                            class="multisteps-form__input form-control">
+                                            <option value="">Chọn thứ</option>
+                                            @foreach ($arrDayAssignment as $option=>$value)
+                                                <option value="{{ $value }}"
+                                                    @if ($value === $assignmentModel->day) 
+                                                        selected  
+                                                    @endif> 
+                                                
+                                                {{$option}}
+                                                </option>
+                                            @endforeach
+                                        </select>
+                                        @error('day')
+                                        <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
                                     <div class="col-12 col-sm-6">
                                         <label>Ca học</label>
                                         <select name="shift_id" id="shift_id"
@@ -104,18 +126,33 @@
                                         </div>
                                         @enderror
                                     </div>
+                                </div>
+                                <div class="row mt-3">
                                     <div class="col-12 col-sm-6 mt-3 mt-sm-0">
-                                        <label>Ngày</label>
+                                        <label>Thời gian bắt đầu</label>
                                         <input class="multisteps-form__input form-control" type="date"
-                                             name="date"
-                                            value="{{ date('Y-m-d', strtotime(($assignmentModel->date))) ??  "" }}">
-                                        @error('date')
+                                            placeholder="eg. Creative Tim" name="date_start"
+                                            value="{{ date('Y-m-d', strtotime($assignmentModel->date_start)) ?? ''}}">
+                                        @error('date_start')
+                                        <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
+                                            {{ $message }}
+                                        </div>
+                                        @enderror
+                                    </div>
+                                    <div class="col-12 col-sm-6">
+                                        <label>Thời gian kết thúc</label>
+                                        <input class="multisteps-form__input form-control" type="date"
+                                            placeholder="eg. Creative Tim" name="date_end"
+                                            value="{{ date('Y-m-d', strtotime($assignmentModel->date_end)) ?? '' }}">
+                                        @error('date_end')
                                         <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
                                             {{ $message }}
                                         </div>
                                         @enderror
                                     </div>
                                 </div>
+
+
                                 <div class="button-row d-flex mt-4">
                                     <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="submit"
                                     title="Save">Lưu</button>
