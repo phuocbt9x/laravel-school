@@ -63,12 +63,7 @@
                                 <span class="sidenav-normal"> Danh sách sinh viên </span>
                             </a>
                         </li>
-                        <li class="nav-item ">
-                            <a class="nav-link " href="{{route('attendance.index')}}">
-                                <span class="sidenav-mini-icon"> L </span>
-                                <span class="sidenav-normal"> Điểm danh </span>
-                            </a>
-                        </li>
+                        
                     </ul>
                 </div>
             </li>

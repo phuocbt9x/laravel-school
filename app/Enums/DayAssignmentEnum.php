@@ -21,13 +21,13 @@ final class DayAssignmentEnum extends Enum
     public static function getArrayValue()
     {
         return [
-            'Thứ 2' => self::MONDAY,
-            'Thứ 3' => self::TUESDAY,
-            'Thứ 4' =>self::WEDNESDAY,
-            'Thứ 5' =>self::THURSDAY,
-            'Thứ 6' =>self::FRIDAY,
-            'Thứ 7' =>self::SATURDAY,
-            'Chủ nhật' =>self::SUNDAY,
+            'Monday' => self::MONDAY,
+            'Tuesday' => self::TUESDAY,
+            'Wednesday' =>self::WEDNESDAY,
+            'Thursday' =>self::THURSDAY,
+            'Friday' =>self::FRIDAY,
+            'Saturday' =>self::SATURDAY,
+            'Sunday' =>self::SUNDAY,
         ];
     }
 

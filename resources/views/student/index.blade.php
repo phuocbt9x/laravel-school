@@ -6,7 +6,7 @@
 
             <div class="card-header d-flex justify-content-between">
                 <h5 class="mb-0">Danh sách sinh viên</h5>
-                <a href="{{ route('student.create') }}" class="btn btn-success">Thêm mới sinh viên</a>
+                
             </div>
             <div class="table-responsive">
                 <table class="table table-flush" id="datatable-search">
