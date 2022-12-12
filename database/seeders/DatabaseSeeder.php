@@ -17,12 +17,13 @@ class DatabaseSeeder extends Seeder
     {
         $this->call([
             DepartmentTableSeeder::class,
+            MajorTableSeeder::class,
             SubjectTableSeeder::class,
             ShiftTableSeeder::class,
             LoginTableSeeder::class,
             // StudentTableSeeder::class,
             // CourseTableSeeder::class
-            
+
         ]);
         $manager =  DB::table('logins')->insertGetId([
             'email' => 'admin@gmail.com',

@@ -15,6 +15,6 @@ class MajorTableSeeder extends Seeder
      */
     public function run()
     {
-        MajorModel::factory()->count(10)->create();
+        MajorModel::factory()->count(32)->create();
     }
 }
