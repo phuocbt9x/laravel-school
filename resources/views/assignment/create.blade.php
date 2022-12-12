@@ -12,7 +12,7 @@
                                 <button class="multisteps-form__progress-btn js-active" type="button" title="User Info">
                                     <span>Phân công dạy học</span>
                                 </button>
-                                
+
                             </div>
                         </div>
                     </div>
@@ -36,9 +36,9 @@
                                             class="multisteps-form__input form-control">
                                             <option value="">Chọn lớp học</option>
                                             @foreach ($courses as $course)
-                                                <option value="{{$course->id}}">
-                                                    {{$course->name}}
-                                                </option>
+                                            <option value="{{$course->id}}">
+                                                {{$course->name}}
+                                            </option>
                                             @endforeach
                                         </select>
                                         @error('course_id')
@@ -55,9 +55,9 @@
                                             class="multisteps-form__input form-control">
                                             <option value="">Chọn môn học</option>
                                             @foreach ($subjects as $subject)
-                                                <option value="{{$subject->id}}">
-                                                    {{$subject->name}}
-                                                </option>
+                                            <option value="{{$subject->id}}">
+                                                {{$subject->name}}
+                                            </option>
                                             @endforeach
                                         </select>
                                         @error('subject_id')
@@ -72,9 +72,9 @@
                                             class="multisteps-form__input form-control">
                                             <option value="">Chọn giáo viên dạy</option>
                                             @foreach ($teachers as $teacher)
-                                                <option value="{{$teacher->id}}">
-                                                    {{$teacher->fullname}}
-                                                </option>
+                                            <option value="{{$teacher->id}}">
+                                                {{$teacher->fullname}}
+                                            </option>
                                             @endforeach
                                         </select>
                                         @error('teacher_id')
@@ -88,17 +88,16 @@
                                 <div class="row mt-3">
                                     <div class="col-12 col-sm-6">
                                         <label>Thứ</label>
-                                        <select name="day" id="day"
-                                            class="multisteps-form__input form-control">
+                                        <select name="days_id[]" id="day" class="multisteps-form__input form-control"
+                                            multiple>
                                             <option value="">Chọn thứ</option>
                                             @foreach ($arrDayAssignment as $option=>$value)
-                                                <option value="{{ $value }}"
-                                                    @if ($loop->first) 
-                                                        checked  
-                                                    @endif
+                                            <option value="{{ $value }}" @if ($loop->first)
+                                                checked
+                                                @endif
                                                 >
                                                 {{$option}}
-                                                </option>
+                                            </option>
                                             @endforeach
                                         </select>
                                         @error('day')
@@ -109,17 +108,16 @@
                                     </div>
                                     <div class="col-12 col-sm-6 mt-3 mt-sm-0">
                                         <label>Ca học</label>
-                                        <select name="shift_id" id="shift_id"
-                                            class="multisteps-form__input form-control">
+                                        <select name="shifts_id[]" id="shift_id"
+                                            class="multisteps-form__input form-control" multiple>
                                             <option value="">Chọn ca học</option>
                                             @foreach ($shifts as $shift)
-                                                <option value="{{ $shift->id }}"
-                                                    @if ($loop->first) 
-                                                        checked  
-                                                    @endif
+                                            <option value="{{ $shift->id }}" @if ($loop->first)
+                                                checked
+                                                @endif
                                                 >
                                                 {{$shift->title}}
-                                                </option>
+                                            </option>
                                             @endforeach
                                         </select>
                                         @error('shift_id')
@@ -134,7 +132,7 @@
                                         <label>Thời gian bắt đầu</label>
                                         <input class="multisteps-form__input form-control" type="date"
                                             placeholder="eg. Creative Tim" name="date_start"
-                                            value="{{ date('Y-m-d', strtotime(old('date_start') ?? "now")) ?? '' }}">
+                                            value="{{ date('Y-m-d', strtotime(old('date_start') ?? " now")) ?? '' }}">
                                         @error('date_start')
                                         <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
                                             {{ $message }}
@@ -145,7 +143,8 @@
                                         <label>Thời gian kết thúc</label>
                                         <input class="multisteps-form__input form-control" type="date"
                                             placeholder="eg. Creative Tim" name="date_end"
-                                            value="{{ date('Y-m-d', strtotime(old('date_end') ?? "+2months" )) ?? '' }}">
+                                            value="{{ date('Y-m-d', strtotime(old('date_end') ?? " +2months" )) ?? ''
+                                            }}">
                                         @error('date_end')
                                         <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
                                             {{ $message }}
@@ -166,8 +165,8 @@
                                 </div>
                                 <div class="button-row d-flex mt-4">
                                     <button class="btn bg-gradient-dark ms-auto mb-0 js-btn-next" type="submit"
-                                    title="Save">Lưu</button>
-                                    
+                                        title="Save">Lưu</button>
+
                                 </div>
                             </div>
                         </div>

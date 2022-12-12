@@ -16,7 +16,7 @@ class ShiftController extends Controller
      */
     public function index()
     {
-        $shifts = ShiftModel::orderBy('id', 'ASC')->get();
+        $shifts = ShiftModel::orderBy('time_start', 'ASC')->get();
         return view('shift.index', compact('shifts'));
     }
 

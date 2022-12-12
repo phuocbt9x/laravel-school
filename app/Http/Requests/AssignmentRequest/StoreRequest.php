@@ -27,7 +27,8 @@ class StoreRequest extends FormRequest
             'course_id' => 'required',
             'subject_id' => 'required',
             'teacher_id' => 'required',
-            'shift_id' => 'required',
+            'days_id' => 'required',
+            'shifts_id' => 'required',
             'date' => 'date'
         ];
     }

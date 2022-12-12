@@ -15,6 +15,6 @@ class ShiftTableSeeder extends Seeder
      */
     public function run()
     {
-        ShiftModel::factory()->count(4)->create();
+        ShiftModel::factory()->count(13)->create();
     }
 }
