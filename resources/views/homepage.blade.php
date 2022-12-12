@@ -20,53 +20,6 @@
             }
         });
     });
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     var calendarEl = document.getElementById('calendar');
-    //     var calendar = new FullCalendar.Calendar(calendarEl, {
-    //         contentHeight: 'auto',
-    //         navLinks: true,
-    //         selectable: true,
-    //         editable: true,
-    //         weekNumbers: true,
-    //         dayMaxEvents: true,
-    //         initialDate: '2022-12-01',
-    //         headerToolbar: 
-    //         {
-    //             left: 'prev,next today',
-    //             center: 'title',
-    //             right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-    //         },
-    //         events: function(fetchInfo, successCallback, failureCallback ) {
-    //         $.ajax({
-    //             
-    //             type: 'GET',
-    //             dataType: 'JSON',
-    //             success: function(data) {
-                    
-    //             var events = [];
-    //             if (data != null) {
-    //                 $.each(data, function(i, item) {
-    //                 //    alert(item); 
-    //                    for(let key in item){
-    //                                id = item[key].id;
-    //                                  console.log( id );
-    //                                }
-    //                 events.push({
-                        
-    //                     start: item.date,
-    //                     title: item.title,
-    //                     display: 'background'
-    //                 })
-    //                 })
-    //             }
-    //             console.log('events', events);
-    //             successCallback(events);
-    //             }
-    //         })
-    //         }
-    //     });
-    //     calendar.render();
-    // });
     document.addEventListener('DOMContentLoaded', function() {
             
            
@@ -92,28 +45,22 @@
                                 type: 'GET',
                                 dataType: 'JSON',
                                 success: function(data) {
-                                    
+                                console.log(data);    
                                 var events = [];
                                 if (data != null) {
                                     $.each(data, function(i, item) {
                                     //    alert(item); 
                                         //console.log(item);
-                                        
                                         events.push({
-                                            start: item.date_start ,
+                                            start: item.start ,
                                             title: item.title,
                                             id: item.id,
                                             display: '',
                                             color: '#4AAAB5',
+                                            url: item.url
                                         })      
-                                    
-                                        //console.log('events',events);
-                                    
                                     })
                                 }
-                                
-                                //console.log('events', events);
-
                                 successCallback(events);
                                 } 
                             })
@@ -122,18 +69,6 @@
                         
                     }
                 ],
-                
-
-
-                    
-                    eventClick: function(event) {
-                        let urlDetail = '{{ route("attendance.index", ":id") }}';
-                        let urlAttendance = urlDetail.replace(':id', event.event.id);
-                        console.log(urlAttendance);
-                        //console.log(event.event.id); 
-                        window.location.href = urlAttendance
-                       
-                    }
             });
             calendar.render();
     });

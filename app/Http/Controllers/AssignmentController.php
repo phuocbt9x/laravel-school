@@ -13,13 +13,15 @@ use App\Models\SubjectModel;
 use App\Models\SubjectTimeModel;
 use App\Models\TeacherModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\View;
 
 class AssignmentController extends Controller
 {
     public function index(Request $request)
     {
-        $assignments = AssignmentModel::orderBy('id', 'ASC')->get();
-        dd($assignments);
+        
+        
+        $assignments = AssignmentModel::orderBy('id', 'ASC')->get();   
         return view('assignment.index', compact('assignments'));
     }
 

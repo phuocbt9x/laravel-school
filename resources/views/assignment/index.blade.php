@@ -39,10 +39,19 @@
                                 {!! $assignment->getTeacher->fullname !!}
                             </td>
                             <td class="text-sm font-weight-normal">
-                                {!! $assignment->getShift->title !!}
+                                
+                                @foreach ($assignment->getShifts as $key => $value)
+                                <span class="badge badge-pill bg-gradient-success">{!! $value->title  !!}</span>
+                                @endforeach
                             </td>
                             <td class="text-sm font-weight-normal">
-                                {!! $assignment->day !!}
+                                @foreach ($assignment->SubjectDay() as $value)
+                               
+                                    <span class="badge badge-pill bg-gradient-success">{!! $value  !!}</span>
+                                @endforeach
+                                   
+                               
+                                
                             </td>
                             <td class="text-sm font-weight-normal">
                                 {!!  date('d-m-Y', strtotime($assignment->date_start)) !!}

@@ -135,7 +135,7 @@ Route::middleware('checkLogin')->group(function () {
 
     //Điểm danh sinh viên
     Route::group(['controller' => AttendanceController::class , 'prefix' => 'attendance' , 'as' => 'attendance.'], function(){
-        Route::get('/{id}', 'index')->name('index');
+        Route::get('/{id}/{date?}', 'index')->name('index');
         Route::post('/', 'post')->name('post');
         Route::post('/attendance', 'attendance')->name('attendance');
         Route::get('create', 'create')->name('create');

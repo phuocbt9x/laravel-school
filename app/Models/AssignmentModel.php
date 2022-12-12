@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Enums\DayAssignmentEnum;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
@@ -43,6 +44,35 @@ class AssignmentModel extends Model
     {
         return $this->belongsToMany(ShiftModel::class, 'subject_times', 'assignment_id', 'shift_id', 'id', 'id');
     }
+
+    public function editTitleEvent()
+    {
+        $title = "Tiết";
+        $course = ($this->getCourseName()->first()->name);
+        foreach($this->getShifts()->get() as $shift ){
+            
+            $title .= ' ' . substr($shift->title , -1);
+        }
+        
+        return $course . ' ' . $title;
+    }
+
+    
+
+    public function SubjectDay()
+    {
+        $arr = [];
+        $days =  $this->hasMany(SubjectDayModel::class , 'assignment_id' , 'id')->get();
+        foreach($days as $day){
+            array_push( $arr,
+                DayAssignmentEnum::getKeyByValue($day->day_id))
+            ;
+            
+        }
+        
+        return $arr;
+    }
+
 
     public function getDate()
     {

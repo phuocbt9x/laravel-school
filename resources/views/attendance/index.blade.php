@@ -8,69 +8,91 @@
     @endpush
     <div class="row mt-4">
         <div class="col-12">
-            <div class="card">
-                <div class="card-header d-flex justify-content-between">
-                    <h5 class="mb-0">Điểm danh sinh viên</h5>
-                    {{$course_name}}
-                    {{$subject_name}}
-                    <a href="{{ route('attendance.create') }}" class="btn btn-success">Thêm mới</a>
-                </div>
-                <div class="table-responsive">
+            <form action="{{ route('attendance.attendance') }}" method="POST">
+                <div class="card">
+                    <div class="card-header" style="display: flex;
+                    flex-direction: column;
+                    align-items: center;">
+                        <h5 class="mb-0">Điểm danh sinh viên</h5>
+                        <div style="display: flex;
+                        flex-direction: row;
+                        justify-content: space-between;
+                        width: 100%;">
+                            <span>Lớp: {{ $course_name }}</span>
+                            <span>Môn học: {{ $subject_name }}</span>
+                            <span>Ngày: {{ $date }}</span>
+                        </div>
+                    </div>
 
-                    
-                        <form action="{{ route('attendance.attendance') }}" method="POST">
-                            @csrf
-                            @method('POST')
-                            <input type="hidden" name="assignment_id" value="{{$assignments->id}}">
-                            
-                            <table class="table table-flush" id="datatable-search">
-                                <thead class="thead-light">
+                    <div class="table-responsive">
+                        @csrf
+                        @method('POST')
+                        <input type="hidden" name="assignment_id" value="{{ $assignments->id }}">
+                        <table class="table table-flush" id="datatable-search">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th>Mã sinh viên</th>
+                                    <th>Tên sinh viên</th>
+                                    <th>Ngày sinh</th>
+                                    <th>Điểm danh</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                @foreach ($arr as $student)
                                     <tr>
-                                        <th>#</th>
-                                        <th>Tên sinh viên</th>
-                                        <th>Tình trạng đi học</th>
-                                    </tr>
-                                </thead>
-                                <tbody id="list_attendance">
-                                    
-                                    @foreach ($arr as $item)
-                                    <tr>
-
-                                        <th>{{$item['id']}}</th>
-                                        <th>{{$item['name']}}</th>
                                         <td>
-                                             <label>
-                                                 <input type="radio" value="1" id="di_hoc"
-                                                     name="item[{{$item['id']}}]" {{($item['check'] == 1) ? 'checked' : ''}}
-                                                    >Đi học
-                                             </label>
-
-                                             <label>
-                                                 <input type="radio" value="0" id="nghi_hoc"
-                                                     name="item[{{$item['id']}}]"  {{($item['check'] == 0) ? 'checked' : ''}}
-                                                     >
-                                                 Nghỉ học
-                                             </label>
-                                         </td>
+                                            {{ $student['id'] }}
+                                        </td>
+                                        <td class="text-sm font-weight-normal">
+                                            {{ $student['name'] }}
+                                        </td>
+                                        <td class="text-sm font-weight-normal">
+                                            {{ date('Y-m-d', strtotime($student['birthdate'])) }}
+                                        </td>
+                                        <td class="text-sm font-weight-normal">
+                                            
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" value="1"
+                                                        id="di_hoc" name="item[{{ $student['id'] }}]"
+                                                        {{ $student['check'] == 1 ? 'checked' : '' }}>
+                                                        <span class="form-check-sign">Đi học</span>
+                                                </label>
+                                               
+                                            </div> 
+                                            <div class="form-check form-check-inline">
+                                                <label class="form-check-label">
+                                                    <input class="form-check-input" type="radio" value="0" id="nghi_hoc"
+                                                        name="item[{{$student['id']}}]"  {{($student['check'] == 0) ? 'checked' : ''}}>
+                                                        <span class="form-check-sign">Nghỉ học</span>
+                                                </label>
+                                            </div>
+                                        </td>
                                     </tr>
-                                    @endforeach
-                                    
-                                </tbody>
-                            </table>
-                            <button>Nhập</button>
-
-                    </form>
+                                @endforeach
+                            </tbody>
+                        </table>
+                        <div style="display: flex;flex-direction: column; align-items: center;" >
+                            <button  class="btn btn-primary btn-round">Điểm danh</button>
+                        </div>
+                    </div>
                 </div>
-            </div>
+            </form>
         </div>
     </div>
 @endsection
-@push('script')    
+@push('script')
+    <script>
+        const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+            searchable: true,
+            fixedHeight: true
+        });
+    </script>
     <script>
         $('#form').submit(function(e) {
-            
+
             let data = new FormData(this);
-            
+
             e.preventDefault();
             $.ajax({
                 type: 'POST',
@@ -86,13 +108,13 @@
 
                     for (const [key, value] of Object.entries(data)) {
                         console.log(`${key}: ${value}`);
-                        
+
                     }
-                    
+
                     // $('#list_attendance').append(html);
                 },
             })
-            
+
         })
     </script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.36/pdfmake.min.js"></script>

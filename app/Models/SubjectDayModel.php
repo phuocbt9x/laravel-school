@@ -10,4 +10,6 @@ class SubjectDayModel extends Model
     use HasFactory;
     protected $table = 'subject_days';
     protected $fillable = ['assignment_id', 'day_id'];
+
+    
 }
