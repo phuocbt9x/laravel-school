@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Enums\DayAssignmentEnum;
 use App\Http\Requests\AssignmentRequest\StoreRequest;
 use App\Http\Requests\AssignmentRequest\UpdateRequest;
 use App\Models\AssignmentModel;
@@ -21,15 +22,19 @@ class AssignmentController extends Controller
 
     public function create()
     {
+        $arrDayAssignment = DayAssignmentEnum::getArrayValue();
         $courses = CourseModel::query()->get();
         $subjects = SubjectModel::query()->get();
         $teachers = TeacherModel::query()->get();
         $shifts = ShiftModel::query()->get();
+        $Assignment = AssignmentModel::get();
         return view('assignment.create' ,[
             'courses' => $courses, 
             'subjects' => $subjects, 
             'teachers' => $teachers,
-            'shifts' => $shifts
+            'shifts' => $shifts,
+            'arrDayAssignment' => $arrDayAssignment,
+            'Assignment' => $Assignment,
         ]);
     }
 
@@ -60,16 +65,21 @@ class AssignmentController extends Controller
      */
     public function edit(AssignmentModel $assignmentModel)
     {
+        $arrDayAssignment = DayAssignmentEnum::getArrayValue();
+        $Assignment = AssignmentModel::get();
         $courses = CourseModel::query()->get();
         $subjects = SubjectModel::query()->get();
         $teachers = TeacherModel::query()->get();
         $shifts = ShiftModel::query()->get();   
         return view('assignment.update' , compact(
-            'assignmentModel' ,
-            'courses',
+        'assignmentModel' ,
+        'courses',
         'subjects',
         'teachers',
-        'shifts',));
+        'shifts',
+        'arrDayAssignment',
+       
+        ));
     }
 
     /**

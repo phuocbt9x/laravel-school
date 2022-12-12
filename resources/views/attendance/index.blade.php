@@ -11,43 +11,17 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="mb-0">Điểm danh sinh viên</h5>
-                    <form method="POST" id="form" >
-                        @csrf
-                        @method('POST')
-                        <select name="assignment_subject" id="assignment_subject">
-                            <option value="">Chọn môn học</option>
-                            @foreach ($assignments as $assignment) 
-                                @if ($assignment->teacher_id === Auth::user()->getInfo->id && date('Y-m', strtotime($assignment->date)) === date("Y-m"))
-                                    <option value="{{ old($assignment->subject_id) ?? $assignment->subject_id }}"
-                                        @if ((isset($subject_id) && $subject_id == $assignment->subject_id) || isset($_GET['subject_id'])) selected @endif>
-                                        {{ $assignment->getSubject->name ?? $_GET['subject_name'] }}
-                                    </option>
-                                @endif
-                            @endforeach
-                        </select>
-                        <select name="assignment_course" id="assignment_course">
-                            @foreach ($assignments as $assignment)
-                                @if ($assignment->teacher_id === Auth::user()->getInfo->id)
-                                    <option value="{{ $assignment->course_id ?? $course_id }}"
-                                        @if (isset($course_id) && $course_id == $assignment->course_id) selected @endif>
-                                        {{ $assignment->getCourseName->name }}
-                                    </option>
-                                @endif
-                            @endforeach
-                        </select>
-                        <input type="text" value="{{ $shifts[0]->getShift->title ?? 'Trống' }}" disabled>
-                        <button type="submit"  id="btn_assignment">Submit</button>
-                    </form>
-                    
+                    {{$course_name}}
+                    {{$subject_name}}
                     <a href="{{ route('attendance.create') }}" class="btn btn-success">Thêm mới</a>
                 </div>
                 <div class="table-responsive">
-                    
+
                     
                         <form action="{{ route('attendance.attendance') }}" method="POST">
                             @csrf
                             @method('POST')
-                            
+                            <input type="hidden" name="assignment_id" value="{{$assignments->id}}">
                             
                             <table class="table table-flush" id="datatable-search">
                                 <thead class="thead-light">
@@ -59,6 +33,27 @@
                                 </thead>
                                 <tbody id="list_attendance">
                                     
+                                    @foreach ($arr as $item)
+                                    <tr>
+
+                                        <th>{{$item['id']}}</th>
+                                        <th>{{$item['name']}}</th>
+                                        <td>
+                                             <label>
+                                                 <input type="radio" value="1" id="di_hoc"
+                                                     name="item[{{$item['id']}}]" {{($item['check'] == 1) ? 'checked' : ''}}
+                                                    >Đi học
+                                             </label>
+
+                                             <label>
+                                                 <input type="radio" value="0" id="nghi_hoc"
+                                                     name="item[{{$item['id']}}]"  {{($item['check'] == 0) ? 'checked' : ''}}
+                                                     >
+                                                 Nghỉ học
+                                             </label>
+                                         </td>
+                                    </tr>
+                                    @endforeach
                                     
                                 </tbody>
                             </table>
@@ -91,7 +86,7 @@
 
                     for (const [key, value] of Object.entries(data)) {
                         console.log(`${key}: ${value}`);
-                        html += ``;
+                        
                     }
                     
                     // $('#list_attendance').append(html);
