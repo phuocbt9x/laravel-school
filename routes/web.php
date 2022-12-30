@@ -5,6 +5,7 @@ use App\Http\Controllers\AttendanceController;
 use App\Http\Controllers\CalendarController;
 use App\Http\Controllers\CourseController;
 use App\Http\Controllers\DepartmentController;
+use App\Http\Controllers\ExamScheduleController;
 use App\Http\Controllers\FullCalendarController;
 use App\Http\Controllers\MajorController;
 use App\Http\Controllers\ShiftController;
@@ -151,4 +152,15 @@ Route::middleware('checkLogin')->group(function () {
     Route::get('/fullcalendar', [CalendarController::class, 'index'])->name('fullcalendar.index');
     Route::get('/FecthFullcalendarEvents/{id}', [CalendarController::class, 'fecth'])->name('fullcalendar.fecth');
     Route::post('/create', [CalendarController::class, 'create'])->name('fullcalendar.create');
+
+    //Lịch thi
+    Route::group(['controller' => ExamScheduleController::class , 'prefix' => 'examSchedule' , 'as' => 'examSchedule.'], function(){
+        Route::get('/', 'index')->name('index');
+        Route::get('create', 'create')->name('create');
+        Route::post('store', 'store')->name('store');      
+        Route::get('show/{examSchedule}', 'show')->name('show');      
+        Route::get('edit/{examScheduleModel}', 'edit')->name('edit');
+        Route::put('update/{examScheduleModel}', 'update')->name('update');
+        Route::delete('destroy/{examScheduleModel}', 'destroy')->name('destroy');
+    });
 });

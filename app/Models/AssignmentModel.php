@@ -47,16 +47,27 @@ class AssignmentModel extends Model
 
     public function editTitleEvent()
     {
-        $title = "Tiết";
+        $title = "Ca";
         $course = ($this->getCourseName()->first()->name);
         foreach($this->getShifts()->get() as $shift ){
             
             $title .= ' ' . substr($shift->title , -1);
         }
         
-        return $course . ' ' . $title;
+        return $course . ' - ' . $title;
     }
 
+    public function editTitleEventStudent()
+    {
+        $title = "Ca";
+        $subject = ($this->getSubject()->first()->name);
+        foreach($this->getShifts()->get() as $shift ){
+            
+            $title .= ' ' . substr($shift->title , -1 );
+        }
+        
+        return $subject . ' - ' . $title;
+    }
     
 
     public function SubjectDay()

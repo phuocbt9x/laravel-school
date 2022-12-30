@@ -21,56 +21,52 @@
         });
     });
     document.addEventListener('DOMContentLoaded', function() {
+        var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
             
-           
-            var calendar = new FullCalendar.Calendar(document.getElementById("calendar"), {
-                
-                contentHeight: 'auto',
-                initialView: "dayGridMonth",
-                headerToolbar: {
-                              left: 'prev,next today',
-                              center: 'title',
-                              right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
-                          },
-                navLinks: true,
-                selectable: true,
-                weekNumbers: true,
-                dayMaxEvents: true,
-                initialDate: '2022-12-01',
-                eventSources: [
-                    {
-                        events: function(fetchInfo, successCallback, failureCallback ) {
-                            $.ajax({
-                                url: '{{ route('fullcalendar.fecth' ,Auth::user()->getInfo->id  ) }}',
-                                type: 'GET',
-                                dataType: 'JSON',
-                                success: function(data) {
-                                console.log(data);    
-                                var events = [];
-                                if (data != null) {
-                                    $.each(data, function(i, item) {
-                                    //    alert(item); 
-                                        //console.log(item);
-                                        events.push({
-                                            start: item.start ,
-                                            title: item.title,
-                                            id: item.id,
-                                            display: '',
-                                            color: '#4AAAB5',
-                                            url: item.url
-                                        })      
-                                    })
-                                }
-                                successCallback(events);
-                                } 
-                            })
-                           
+            contentHeight: 'auto',
+            initialView: "dayGridMonth",
+            headerToolbar: {
+                            left: 'prev,next today',
+                            center: 'title',
+                            right: 'dayGridMonth,timeGridWeek,timeGridDay,listMonth'
                         },
+            navLinks: true,
+            selectable: true,
+            weekNumbers: true,
+            dayMaxEvents: true,
+            initialDate: '2022-12-01',
+            eventSources: [
+                {
+                    events: function(fetchInfo, successCallback, failureCallback ) {
+                        $.ajax({
+                            url: '{{ route('fullcalendar.fecth' ,Auth::user()->getInfo->id  ) }}',
+                            type: 'GET',
+                            dataType: 'JSON',
+                            success: function(data) {
+                            console.log(data);    
+                            var events = [];
+                            if (data != null) {
+                                $.each(data, function(i, item) {
+                                    events.push({
+                                        start: item.start ,
+                                        title: item.title,
+                                        id: item.id,
+                                        display: '',
+                                        color: '#4AAAB5',
+                                        url: item.url
+                                    })      
+                                })   
+                            }
+                            successCallback(events);
+                            } 
+                        })
                         
-                    }
-                ],
-            });
-            calendar.render();
+                    },
+                    
+                }
+            ],
+        });
+        calendar.render();
     });
 </script>
 @endpush

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Enums\DayAssignmentEnum;
 use App\Models\AssignmentModel;
 use App\Models\CourseModel;
+use App\Models\StudentModel;
 use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -21,37 +22,70 @@ class CalendarController extends Controller
     }
     public function index()
     {
-        $assignment = AssignmentModel::get();
-       
-        return   compact('assignment');
+        $student = StudentModel::get();
+        if(Auth::user()->level == 1 || Auth::user()->level == 2 ){ 
+            $assignment = AssignmentModel::get();   
+            dd($assignment);
+            return   compact('assignment');
+        }
+        $course_infor =  StudentModel::where('id' ,Auth::user()->id )->orderBy('id' , 'ASC')->get();
+        $assignment_infor = AssignmentModel::where('course_id' , $course_infor[0]->course_id)->orderBy('id' , 'ASC')->get();
+        return   compact('assignment_infor');   
     }
-
+    
     public function fecth($id)
     {
         $arr = [];
-        $events = AssignmentModel::where('teacher_id', $id)->orderBy('id', 'ASC')->get(); 
+        if($id == 1 || $id == 2){
+            $events = AssignmentModel::where('teacher_id', $id)->orderBy('id', 'ASC')->get(); 
 
-        foreach($events as $event){
-            $time_start = $event->date_start;
-            $time_end = $event->date_end;
-            $periods = CarbonPeriod::create($time_start, $time_end);
-            foreach($event->SubjectDay() as $day){
-                foreach($periods as $period){
-                    if($period->format('l') === $day){
-                    
-                            $arr[]= [
-                                'id'=> $event->id,
-                                'title' => $event->editTitleEvent(),
-                                'start' => $period->format('Y-m-d'),
-                                'url' => route('attendance.index' , [$event->id , $period->format('Y-m-d')])
-                            ];
+            foreach($events as $event){
+                $time_start = $event->date_start;
+                $time_end = $event->date_end;
+                $periods = CarbonPeriod::create($time_start, $time_end);
+                foreach($event->SubjectDay() as $day){
+                    foreach($periods as $period){
+                        if($period->format('l') === $day){
                         
+                                $arr[]= [
+                                    'id'=> $event->id,
+                                    'title' => $event->editTitleEvent(),
+                                    'start' => $period->format('Y-m-d'),
+                                    'url' => route('attendance.index' , [$event->id , $period->format('Y-m-d')])
+                                ];
+                            
+                        }
                     }
                 }
             }
+            return response()->json($arr);
+        }   
+        $students = StudentModel::where('id', $id)->orderBy('id', 'ASC')->get();
+        foreach($students as $student){
+            $assignment_id = AssignmentModel::where('course_id', $student->course_id)->orderBy('id', 'ASC')->get(); 
+            foreach($assignment_id as $event){
+                $time_start = $event->date_start;
+                $time_end = $event->date_end;
+                $periods = CarbonPeriod::create($time_start, $time_end);
+                foreach($event->SubjectDay() as $day){
+                    foreach($periods as $period){
+                        if($period->format('l') === $day){ 
+                                $arr[]= [
+                                    'id'=> $event->id,
+                                    'title' => $event->editTitleEventStudent(),
+                                    'start' => $period->format('Y-m-d'),
+                                ];
+                            
+                        }
+                    }
+                }
+            }
+            return response()->json($arr);
         }
         
-        // $result = $events->groupBy(['subject_id', function ($item) {
+    }
+
+     // $result = $events->groupBy(['subject_id', function ($item) {
         //     return DayAssignmentEnum::getKeyByValue($item['day']);
         // }], preserveKeys: true);
         
@@ -89,9 +123,6 @@ class CalendarController extends Controller
         //         ];
         // }
         // dd($arr);
-        return response()->json($arr);
-    }
-
     public function create(Request $request)
     {
         $events = new AssignmentModel();

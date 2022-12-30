@@ -20,6 +20,8 @@ return new class extends Migration
             $table->unsignedInteger('teacher_id');
             $table->boolean('type')->default(0);
             $table->date('date');
+            $table->tinyInteger('timestart');
+            $table->tinyInteger('minutes');
             $table->boolean('activated')->default(0);
             $table->timestamps();
             $table->foreign('subject_id')
