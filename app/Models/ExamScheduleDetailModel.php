@@ -9,10 +9,19 @@ class ExamScheduleDetailModel extends Model
 {
     use HasFactory;
 
-    protected $table = 'exam_schedules';
+    protected $table = 'exam_schedule_details';
     protected $fillable  = [
-        'subject_id' , 'department_id', 'teacher_id', 'type', 'date', 'timestart', 'minutes'
+        'exam_schedule_id', 'student_id','activated'
     ];
 
+    public function getExamSchedule()
+    {
+        return $this->hasOne(ExamScheduleModel::class, 'id', 'exam_schedule_id');
+    }
+
+    public function getTeacher()
+    {
+        return $this->hasOne(StudentModel::class, 'id', 'student_id');
+    }
     
 }

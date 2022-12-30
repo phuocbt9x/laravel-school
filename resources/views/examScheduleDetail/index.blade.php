@@ -24,45 +24,28 @@
                                 <th>Thời gian bắt đầu</th>
                                 <th>Thời gian làm bài</th>
                                 <th>Kiểu thi</th>
-                                @if (Auth::user()->level !== '3')
-                                    <th>Giáo viên coi thi</th>
-                                @endif
-                                <th>Chức năng</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($examSchedules as $examSchedule)
+                            @foreach ($examScheduleStudents as $examScheduleStudent)
                                 <tr>
                                     <td class="text-sm font-weight-normal">
-                                        {{ $examSchedule->getSubject->name }}
+                                        {{ $examScheduleStudent->getExamSchedule->getSubject->name }}
                                     </td>
                                     <td class="text-sm font-weight-normal">
-                                         Khoa - {{ $examSchedule->getDepartment->name }}
+                                         Khoa - {{ $examScheduleStudent->getExamSchedule->getDepartment->name }}
                                     </td>
                                     <td class="text-sm font-weight-normal">
-                                        {{ $examSchedule->stringDate() }}
+                                        {{ $examScheduleStudent->getExamSchedule->stringDate() }}
                                     </td>
                                     <td class="text-sm font-weight-normal">
-                                        {{ $examSchedule->getTimeStart($examSchedule->timestart) }}
+                                        {{ $examScheduleStudent->getExamSchedule->getTimeStart($examScheduleStudent->getExamSchedule->timestart) }}
                                     </td>
                                     <td class="text-sm font-weight-normal">
-                                        {{ $examSchedule->getNumberOfMinutes($examSchedule->minutes) }}
+                                        {{ $examScheduleStudent->getExamSchedule->getNumberOfMinutes($examScheduleStudent->getExamSchedule->minutes) }}
                                     </td>
                                     <td class="text-sm font-weight-normal">
-                                        {{ $examSchedule->getType() }}
-                                    </td>
-                                    <td class="text-sm font-weight-normal">
-                                        {{ $examSchedule->getTeacher->fullname }}
-                                    </td>
-                                    <td class="text-sm font-weight-normal">
-                                        <a href="{{ route('examSchedule.edit', $examSchedule->id) }}" class="badge bg-gradient-secondary"
-                                            title="Chỉnh sửa">
-                                            <i class="fas fa-edit"></i>
-                                        </a>
-                                        <a href="javascript:;" class="badge bg-gradient-danger" title="Xóa"
-                                            onclick="deleteItem({{ $examSchedule->id }})">
-                                            <i class="fas fa-trash"></i>
-                                        </a>
+                                        {{ $examScheduleStudent->getExamSchedule->getType() }}
                                     </td>
                                 </tr>
                             @endforeach

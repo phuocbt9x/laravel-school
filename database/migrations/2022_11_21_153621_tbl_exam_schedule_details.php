@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('exam_schedule_details', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('exam_schedule_id');
-            $table->unsignedInteger('student_id')->unique();
+            $table->unsignedInteger('student_id');
             $table->boolean('activated')->default(0);
             $table->timestamps();
             $table->foreign('exam_schedule_id')
@@ -25,6 +25,7 @@ return new class extends Migration
             $table->foreign('student_id')
                 ->references('id')
                 ->on('students');
+            // $table->unique(['exam_schedule_id', 'student_id']);
         });
     }
 
