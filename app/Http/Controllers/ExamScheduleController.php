@@ -6,6 +6,7 @@ use App\Enums\NumberOfMinutesEnum;
 use App\Enums\TimeStartEnum;
 use App\Http\Requests\ExamScheduleRequest\StoreRequest;
 use App\Http\Requests\ExamScheduleRequest\UpdateRequest;
+use App\Models\AssignmentModel;
 use App\Models\DepartmentModel;
 use App\Models\ExamScheduleDetailModel;
 use App\Models\ExamScheduleModel;
@@ -76,60 +77,44 @@ class ExamScheduleController extends Controller
 
     public function store(StoreRequest $request)
     {
-        
-        
-            $ExSchedule = ExamScheduleModel::get();
-            //dd($request->all());
-            //dd($request->get('teacher_id'));
-            foreach($ExSchedule as $examScheduleStudent){
-                $selectExamSchedule = ExamScheduleModel::where([
-                    'subject_id' => $request->get('subject_id'),
-                    'department_id' => $request->get('department_id'),
-                    'teacher_id' => $request->get('teacher_id'),
-                    'date' => $request->get('date')
-                ])->get();
-                //dd($selectExamSchedule->all() === [] );
-                if($selectExamSchedule->all() !== []){
-                    return redirect()->back();
+        $assignments = AssignmentModel::all();
+        try { 
+            foreach($assignments as $assignment){
+                if( $request->get('department_id') == $assignment->getCourseName->department->id  && $request->get('subject_id') == $assignment->subject_id ){
+                    $selectExamSchedule = ExamScheduleModel::where([
+                        'subject_id' => $request->get('subject_id'),
+                        'department_id' => $request->get('department_id'),
+                        'teacher_id' => $request->get('teacher_id'),
+                        'date' => $request->get('date')
+                    ])->get();
+                    if($selectExamSchedule->all() !== []){
+                        return redirect()->back()->with('error', 'Lịch thi này đã tồn tại');
+                    }  
+                    $examSchedule = ExamScheduleModel::create($request->all()); 
+                    $ExSchedule = ExamScheduleModel::get();
+                    foreach($ExSchedule as $examScheduleStudent){
+                        $courseInfor = $examScheduleStudent->getDepartment->getCourses;
+                        foreach($courseInfor as $course){
+                            $student = StudentModel::where('course_id', $course->id )->value('id');
+                            ExamScheduleDetailModel::updateOrCreate(
+                                [
+                                    'exam_schedule_id' => $examScheduleStudent->id,
+                                    'student_id' => $student,
+                                    'activated' => 1
+                                ],
+                            );
+                        }
+                    }
+                    if (!empty($examSchedule)) {   
+                        return redirect()->route('examSchedule.index')
+                            ->withErrors(['success' => 'Thêm mới dữ liệu thành công']);
+                    }
                 }
             }
-            
-            // dd($request->all());
-            // if(isset($request->id) && isset($student)){
-            //     dd(1);
-            // } 
-            $examSchedule = ExamScheduleModel::create($request->all());
-            
-            $arr = [];
-            
-            
-            foreach($ExSchedule as $examScheduleStudent){
-                $courseInfor = $examScheduleStudent->getDepartment->getCourses;
-                foreach($courseInfor as $course){
-                    $student = StudentModel::where('course_id', $course->id )->value('id');
-                    
-                    $arr []= [
-                        'exam_schedule_id' => $examScheduleStudent->id, 
-                        'student_id' => $student,
-                        'activated' => 1
-                    ];
-                }
-            }
-            
-            
-            foreach($arr as $data_examSchedule){
-                
-                ExamScheduleDetailModel::updateOrCreate($data_examSchedule);
-            }
-                // dd($data_examSchedule);
-            if (!empty($examSchedule)) {
-                
-                
-                return redirect()->route('examSchedule.index')
-                    ->withErrors(['success' => 'Thêm mới dữ liệu thành công']);
-            }
-        
-        
+            return redirect()->back()->with('error', 'Khoa này chưa có lịch học');
+        } catch (\Throwable $th) {
+            dd('Lỗi');
+        }
     }
 
     public function edit(ExamScheduleModel $examScheduleModel)
@@ -163,11 +148,11 @@ class ExamScheduleController extends Controller
         } catch (\Throwable $th) {
             return redirect()->back();
         }
-        
     }
 
     public function destroy(ExamScheduleModel $examScheduleModel)
     {
+        $destroyExamDetail = ExamScheduleDetailModel::where('exam_schedule_id' , $examScheduleModel->id)->delete();
         $destroy = $examScheduleModel->delete();
         if ($destroy) {
             return response()->json([

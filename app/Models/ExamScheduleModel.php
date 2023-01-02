@@ -27,7 +27,7 @@ class ExamScheduleModel extends Model
 
     public function getDepartment()
     {
-        return $this->hasOne(DepartmentModel::class, 'id', 'teacher_id');
+        return $this->hasOne(DepartmentModel::class, 'id', 'department_id');
     }
 
     public function getTeacher()

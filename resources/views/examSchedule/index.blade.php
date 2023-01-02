@@ -8,8 +8,12 @@
     @endpush
     <div class="row mt-4">
         <div class="col-12">
+            @error('success')
+                <div class="alert alert-success" style="color: white">
+                    {{ $message }}
+                </div>
+            @enderror
             <div class="card">
-    
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="mb-0">Lịch thi</h5>
                     @if (Auth::user()->level === '1')

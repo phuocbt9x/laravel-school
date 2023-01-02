@@ -1,9 +1,14 @@
 @extends('layout.main')
 @section('content')
 <div class="row mb-5">
+    
     <div class="col-12">
         <div class="multisteps-form mb-5">
-
+            @if(session()->has('error'))
+                <div class="alert alert-danger" style="color: white">
+                    {{ session()->get('error') }}
+                </div>
+            @endif
             <div class="row">
                 <div class="col-12 col-lg-8 mx-auto my-4">
                     <div class="card">
@@ -42,7 +47,7 @@
                                             @endforeach
                                         </select>
                                         @error('subject_id')
-                                        <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
+                                        <div class="alert alert-danger" style="padding: 0.5% 0 0 1%; margin-top: 2%;">
                                             {{ $message }}
                                         </div>
                                         @enderror
@@ -89,7 +94,7 @@
                                         </div>
                                         
                                         @error('type')
-                                        <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 2%;">
+                                        <div class="alert alert-danger" style="padding: 1% 0 0 2%; margin-top: 3%;">
                                             {{ $message }}
                                         </div>
                                         @enderror
