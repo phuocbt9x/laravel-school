@@ -15,7 +15,7 @@ return new class extends Migration
     {
         Schema::create('points', function (Blueprint $table) {
             $table->id();
-            $table->unsignedInteger('subject_id');
+            $table->unsignedInteger('assignment_id');
             $table->unsignedInteger('student_id');
             $table->float('diligence'); //điểm chuyên cần
             $table->float('mid_term');
@@ -23,9 +23,9 @@ return new class extends Migration
             $table->float('total');
             $table->boolean('activated')->default(0);
             $table->timestamps();
-            $table->foreign('subject_id')
+            $table->foreign('assignment_id')
                 ->references('id')
-                ->on('subjects');
+                ->on('assignments');
             $table->foreign('student_id')
                 ->references('id')
                 ->on('students');

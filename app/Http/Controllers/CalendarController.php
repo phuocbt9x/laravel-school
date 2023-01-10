@@ -58,6 +58,7 @@ class CalendarController extends Controller
                     }
                 }
             }
+            
             return response()->json($arr);
         }   
         $students = StudentModel::where('id', $id)->orderBy('id', 'ASC')->get();
@@ -74,15 +75,13 @@ class CalendarController extends Controller
                                     'id'=> $event->id,
                                     'title' => $event->editTitleEventStudent(),
                                     'start' => $period->format('Y-m-d'),
-                                ];
-                            
+                                ];      
                         }
                     }
                 }
             }
             return response()->json($arr);
         }
-        
     }
 
      // $result = $events->groupBy(['subject_id', function ($item) {

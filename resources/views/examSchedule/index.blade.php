@@ -16,6 +16,7 @@
             <div class="card">
                 <div class="card-header d-flex justify-content-between">
                     <h5 class="mb-0">Lịch thi</h5>
+                    
                     @if (Auth::user()->level === '1')
                         <a href="{{ route('examSchedule.create') }}" class="btn btn-success">Thêm lịch thi</a>
                     @endif

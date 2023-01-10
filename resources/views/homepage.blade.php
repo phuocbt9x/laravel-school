@@ -34,7 +34,7 @@
             selectable: true,
             weekNumbers: true,
             dayMaxEvents: true,
-            initialDate: '2022-12-01',
+            initialDate: new Date(),
             eventSources: [
                 {
                     events: function(fetchInfo, successCallback, failureCallback ) {

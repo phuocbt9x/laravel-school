@@ -18,6 +18,7 @@ return new class extends Migration
             $table->unsignedInteger('assignment_id');
             $table->unsignedInteger('student_id');
             $table->boolean('check');
+            $table->date('date');
             $table->timestamps();
             $table->foreign('assignment_id')
                 ->references('id')

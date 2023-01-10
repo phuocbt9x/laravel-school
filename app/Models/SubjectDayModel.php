@@ -11,5 +11,10 @@ class SubjectDayModel extends Model
     protected $table = 'subject_days';
     protected $fillable = ['assignment_id', 'day_id'];
 
+    public function getAssignment()
+    {
+        return $this->hasOne(AssignmentModel::class, 'id', 'assignment_id');
+    }
+    
     
 }

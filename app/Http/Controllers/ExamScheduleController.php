@@ -1,7 +1,6 @@
 <?php
 
 namespace App\Http\Controllers;
-
 use App\Enums\NumberOfMinutesEnum;
 use App\Enums\TimeStartEnum;
 use App\Http\Requests\ExamScheduleRequest\StoreRequest;
@@ -26,39 +25,17 @@ class ExamScheduleController extends Controller
         $User =  Auth::user();
         $checkUser = $User->level;
         $getIdUser = $User->getInfo->id;
-        // $arr = [];
-        // $examSchedule = ExamScheduleModel::get();
-        // foreach($examSchedule as $examScheduleTeacher){
-        //     $courseInfor = $examScheduleTeacher->getDepartment->getCourses;
-        //     foreach($courseInfor as $course){
-        //         $student = StudentModel::where('course_id', $course->id )->value('id');
-                
-        //         $arr []= [
-        //             'exam_schedule_id' => $examScheduleTeacher->id, 
-        //             'student_id' => $student,
-        //             'activated' => 1,
-        //             //'course' => $course->id,
-        //         ];
-        //     }
-        // }
-        // //dd($arr);
-        // foreach($arr as $data_examSchedule){
-
-        //     $examSchedule = ExamScheduleDetailModel::create($data_examSchedule);
-        // }
         if($checkUser === '1'){
             $examScheduleTeacher = ExamScheduleModel::get();
         }
         else if($checkUser === '2'){
             $examScheduleTeacher = ExamScheduleModel::where('teacher_id' , $getIdUser)->get();
         }
-        
         return view('examSchedule.index', compact('examScheduleTeacher'));
     }
 
     public function create(Request $request)
     {
-        
         $timeStarts = TimeStartEnum::getArrayValue();
         $minutes = NumberOfMinutesEnum::getArrayValue();
         $subjects = SubjectModel::where('activated', 1)->orderBy('name', 'ASC')->get();
@@ -89,21 +66,28 @@ class ExamScheduleController extends Controller
                     ])->get();
                     if($selectExamSchedule->all() !== []){
                         return redirect()->back()->with('error', 'Lịch thi này đã tồn tại');
-                    }  
-                    $examSchedule = ExamScheduleModel::create($request->all()); 
-                    $ExSchedule = ExamScheduleModel::get();
-                    foreach($ExSchedule as $examScheduleStudent){
-                        $courseInfor = $examScheduleStudent->getDepartment->getCourses;
+                    }
+                    $examSchedule = ExamScheduleModel::create($request->all());
+                    $ExSchedule = ExamScheduleModel::get()->last();
+                    //dd($ExSchedule->id);
+                    // foreach($ExSchedule as $examScheduleStudent){
+                        $courseInfor = $ExSchedule->getDepartment->getCourses;
                         foreach($courseInfor as $course){
-                            $student = StudentModel::where('course_id', $course->id )->value('id');
-                            ExamScheduleDetailModel::updateOrCreate(
-                                [
-                                    'exam_schedule_id' => $examScheduleStudent->id,
-                                    'student_id' => $student,
-                                    'activated' => 1
-                                ],
-                            );
+                            $students = StudentModel::where('course_id', $course->id )->get();
+                            foreach ($students as $student) {
+                                    $arr[] = [
+                                        'student_id' => $student->id,
+                                        'exam_schedule_id' => $ExSchedule->id,
+                                        'activated' => 1
+                                    ];
+                            }
                         }
+                    //}
+                    //dd($arr1);
+                    foreach($arr as $data_examScheduleDetail){
+                        ExamScheduleDetailModel::create(
+                            $data_examScheduleDetail
+                        );
                     }
                     if (!empty($examSchedule)) {   
                         return redirect()->route('examSchedule.index')

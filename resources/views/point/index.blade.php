@@ -8,54 +8,42 @@
     @endpush
     <div class="row mt-4">
         <div class="col-12">
+            @error('success')
+                <div class="alert alert-success" style="color: white">
+                    {{ $message }}
+                </div>
+            @enderror
             <div class="card">
-    
                 <div class="card-header d-flex justify-content-between">
-                    <h5 class="mb-0">Lịch thi</h5>
-                    <a href="{{ route('examSchedule.create') }}" class="btn btn-success">Thêm lịch thi</a>
+                    <h5 class="mb-0">Điểm học phần</h5>
                 </div>
                 <div class="table-responsive">
                     <table class="table table-flush" id="datatable-search">
                         <thead class="thead-light">
                             <tr>
-                                <th>Môn thi</th>
-                                <th>Khoa</th>
-                                <th>Ngày thi</th>
-                                <th>Thời gian bắt đầu</th>
-                                <th>Thời gian làm bài</th>
-                                <th>Kiểu thi</th>
-                                <th>Tình trạng</th>
+                                <th>#</th>
+                                <th>Môn học</th>
+                                <th>Lớp học</th>
+                                <th>Điểm Học phần</th>
                             </tr>
                         </thead>
                         <tbody>
-                            @foreach ($examScheduleStudents as $examScheduleStudent)
-                                <tr>
+                           @foreach ($assignmentModel as $assignment)
+                               <tr>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $assignment->id }}
+                                 </td>
                                     <td class="text-sm font-weight-normal">
-                                        {{ $examScheduleStudent->getExamSchedule->getSubject->name }}
+                                       {{ $assignment->getSubject->name }}
                                     </td>
                                     <td class="text-sm font-weight-normal">
-                                         Khoa - {{ $examScheduleStudent->getExamSchedule->getDepartment->name }}
+                                        {{ $assignment->getCourseName->name }}
                                     </td>
                                     <td class="text-sm font-weight-normal">
-                                        {{ $examScheduleStudent->getExamSchedule->stringDate() }}
-                                    </td>
-                                    <td class="text-sm font-weight-normal">
-                                        {{ $examScheduleStudent->getExamSchedule->getTimeStart($examScheduleStudent->getExamSchedule->timestart) }}
-                                    </td>
-                                    <td class="text-sm font-weight-normal">
-                                        {{ $examScheduleStudent->getExamSchedule->getNumberOfMinutes($examScheduleStudent->getExamSchedule->minutes) }}
-                                    </td>
-                                    <td class="text-sm font-weight-normal">
-                                        {{ $examScheduleStudent->getExamSchedule->getType() }}
-                                    </td>
-                                    <td class="text-sm font-weight-normal">
-                                        <span class="text-danger text-gradient px-0 mb-0 font-weight-bold" >
-                                            {{ $examScheduleStudent->checkBan($arr[$examScheduleStudent->getExamSchedule->subject_id]['diligence']) }}
-                                        </span>
-                                        
+                                        <a href="{{ route('point.create', $assignment->id) }}" class="btn btn-success">Điểm</a>
                                     </td>
                                 </tr>
-                            @endforeach
+                           @endforeach
                         </tbody>
                     </table>
                 </div>

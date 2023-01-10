@@ -25,6 +25,11 @@ class AssignmentModel extends Model
         return $this->belongsToMany(StudentModel::class, 'attendances', 'assignment_id', 'student_id', 'id', 'id')->withPivot('check');
     }
 
+    public function Point()
+    {
+        return $this->belongsToMany(StudentModel::class, 'points', 'assignment_id', 'student_id', 'id', 'id')->withPivot('diligence', 'mid_term', 'final', 'total');
+    }
+
     public function getCourseName()
     {
         return $this->hasOne(CourseModel::class, 'id', 'course_id');
@@ -84,6 +89,32 @@ class AssignmentModel extends Model
         return $arr;
     }
 
+    public function getRank($object)
+    {
+        if((($object >=1 ) && ($object < 3)) || empty($object)){
+            $total =  'F';
+        }
+        else if(($object >=3 ) && ($object < 4)){
+            $total = 'D';
+        }
+        else if(($object >=4 ) && ($object < 6)){
+            $total = 'C';
+        }
+        else if(($object >=6 ) && ($object < 8)){
+            $total = 'B';
+        }
+        else if(($object >=8 ) && ($object <= 10)){
+            $total = 'A';
+        }
+        return $total;
+    }
+
+    public function checkFinalPoint($object)
+    {
+        if($object == 0){
+            return 'Học lại';
+        }
+    }
 
     public function getDate()
     {

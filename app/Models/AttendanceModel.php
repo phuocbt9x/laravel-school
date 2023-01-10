@@ -13,7 +13,8 @@ class AttendanceModel extends Model
     protected $fillable = [
         'assignment_id',
         'student_id',
-        'check'
+        'check',
+        'date'
     ];
 
     public function getAssignment()

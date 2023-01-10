@@ -13,6 +13,7 @@ use App\Models\SubjectModel;
 use App\Models\SubjectTimeModel;
 use App\Models\TeacherModel;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\View;
 
 class AssignmentController extends Controller
@@ -98,7 +99,23 @@ class AssignmentController extends Controller
      */
     public function edit(AssignmentModel $assignmentModel)
     {
+        $subjectDayModel = SubjectDayModel::where('assignment_id', $assignmentModel->id)->get();
+        $subjectTimeModel = subjectTimeModel::where('assignment_id', $assignmentModel->id)->get();
+        //dd($subjectDayModel, $subjectTimeModel);
+        foreach($subjectDayModel as $subjectDay){
+            $days[] = [
+                'assignment_id' => $assignmentModel->id,
+                'day_id' => $subjectDay->day_id,
+            ];
+        }
+        foreach($subjectTimeModel as $subjectTime){
+            $shiftsArr[] = [
+                'assignment_id' => $assignmentModel->id,
+                'shift_id' => $subjectTime->shift_id,
+            ];
+        }
         $arrDayAssignment = DayAssignmentEnum::getArrayValue();
+        //dd($shifts);
         $Assignment = AssignmentModel::get();
         $courses = CourseModel::query()->get();
         $subjects = SubjectModel::query()->get();
@@ -111,6 +128,8 @@ class AssignmentController extends Controller
             'teachers',
             'shifts',
             'arrDayAssignment',
+            'days',
+            'shiftsArr'
 
         ));
     }
@@ -124,9 +143,52 @@ class AssignmentController extends Controller
      */
     public function update(UpdateRequest $request, AssignmentModel $assignmentModel)
     {
+        // dd($request);
+        // dd($assignmentModel->getShifts()->update($request->shift_id));
         try {
-            $assignment = $assignmentModel->update($request->all());
+            $assignment = $assignmentModel->update($request->except(['days_id', 'shifts_id']));
+            //$assignment_id = $ass
+            foreach ($request->shift_id as $shift) {
+                //dd($shift);
+                $shifts[] = [
+                    'assignment_id' => $assignmentModel->id,
+                    'shift_id' => $shift
+                ];
+            }
+
+            foreach ($request->day_id as $day) {
+                $days[] = [
+                    'assignment_id' => $assignmentModel->id,
+                    'day_id' => $day
+                ];
+            }
+            
+            //dd($shifts, $days);
             if (!empty($assignment)) {
+                $index =  $assignmentModel->id;
+                // $days->each(function ($item) {
+                //     dd($item);
+                //     SubjectDayModel::updateOrCreate([
+                //         ['assignment_id' => $item['assignment_id']],
+                //         ['day_id' => $item['day_id']]
+                //     ]);
+                // });
+                // $shifts->each(function ($item) {
+                    
+                //     SubjectTimeModel::updateOrCreate([
+                //         ['assignment_id' => $item['assignment_id']],
+                //         ['shift_id' => $item['shift_id']]
+                //     ]);
+                // });
+                $subjectDayModelDelete = SubjectDayModel::where('assignment_id' , $assignmentModel->id)->delete();
+                $subjectTimeModelDelete = SubjectTimeModel::where('assignment_id' , $assignmentModel->id)->delete();
+                if($subjectDayModelDelete){
+                    $subjectDayModel = SubjectDayModel::upsert($days,['assignment_id'], ['day_id']);       
+                }
+                if($subjectDayModelDelete){
+                    $subjectTimeModel = SubjectTimeModel::upsert($shifts,['assignment_id'], ['shift_id']);
+                }
+                
                 return redirect()->route('assignment.index')
                     ->withErrors(['success' => 'Dữ liệu cập nhật thành công']);
             }

@@ -4,8 +4,10 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StudentRequest\StoreRequest;
 use App\Http\Requests\StudentRequest\UpdateRequest;
+use App\Models\AssignmentModel;
 use App\Models\CourseModel;
 use App\Models\LoginModel;
+use App\Models\PointModel;
 use App\Models\StudentModel;
 use Illuminate\Http\Request;
 
@@ -71,8 +73,50 @@ class StudentController extends Controller
      */
     public function show(StudentModel $studentModel)
     {
-
-        return view('student.detail', compact('studentModel'));
+        $listpoint = PointModel::where('student_id',$studentModel->id)->get();
+        $assignment_empty = AssignmentModel::where('course_id' , $studentModel->course_id)->get();
+        // dd($listpoint);
+        if($listpoint->isNotEmpty()){
+            foreach($listpoint as $list){
+                $assignments = AssignmentModel::where('id' , $list->assignment_id)->get();
+                //dd($assignments);
+                foreach($assignments as $assignment){
+                    $point[$assignment->id] = [
+                        'diligence' => $list->diligence,
+                        'mid_term' => $list->mid_term,
+                        'final' => $list->final,
+                        'total' => $list->total,
+                    ];
+                }
+                
+            }
+        }
+        else{
+            if($assignment_empty->isNotEmpty()){
+                foreach($assignment_empty as $assignment){
+                    $point[$assignment->id] = [
+                        'diligence' => 0,
+                        'mid_term' => 0,
+                        'final' => 0,
+                        'total' => 0,
+                    ];
+                }
+            }
+            else{
+                $point = [];
+            }
+        }
+        //dd($point_assignment);
+        if(!$assignment_empty->isNotEmpty()){
+            $assignment_empty = [];
+        }
+        
+        return view('student.detail', compact([
+            'studentModel',
+            'point',
+            'listpoint',
+            'assignment_empty'
+        ]));
     }
 
     /**

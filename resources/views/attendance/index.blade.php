@@ -28,6 +28,7 @@
                         @csrf
                         @method('POST')
                         <input type="hidden" name="assignment_id" value="{{ $assignments->id }}">
+                        <input type="hidden" name="date" value="{{ $date }}">
                         <table class="table table-flush" id="datatable-search">
                             <thead class="thead-light">
                                 <tr>
@@ -38,32 +39,41 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @foreach ($arr as $student)
+                                @foreach ($Student_lists as  $student)
                                     <tr>
                                         <td>
-                                            {{ $student['id'] }}
+                                            {{ $student->id }}
                                         </td>
                                         <td class="text-sm font-weight-normal">
-                                            {{ $student['name'] }}
+                                            {{ $student->fullname }}
                                         </td>
                                         <td class="text-sm font-weight-normal">
-                                            {{ date('Y-m-d', strtotime($student['birthdate'])) }}
+                                            {{ date('Y-m-d', strtotime( $student->birthdate )) }}
                                         </td>
                                         <td class="text-sm font-weight-normal">
                                             
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="radio" value="1"
-                                                        id="di_hoc" name="item[{{ $student['id'] }}]"
-                                                        {{ $student['check'] == 1 ? 'checked' : '' }}>
+                                                        id="di_hoc" name="item[{{$student->id}}]"
+                                                        @if (isset($arr[$assignments->id][$student->id]) && $arr[$assignments->id][$student->id]['check'] == 1)
+                                                            @checked(true)
+                                                        @else
+                                                            @checked(false)
+                                                        @endif>
                                                         <span class="form-check-sign">Đi học</span>
                                                 </label>
-                                               
                                             </div> 
                                             <div class="form-check form-check-inline">
                                                 <label class="form-check-label">
                                                     <input class="form-check-input" type="radio" value="0" id="nghi_hoc"
-                                                        name="item[{{$student['id']}}]"  {{($student['check'] == 0) ? 'checked' : ''}}>
+                                                        name="item[{{$student->id}}]"  
+                                                        @if (isset($arr[$assignments->id][$student->id]) && $arr[$assignments->id][$student->id]['check'] == 0)
+                                                            @checked(true)
+                                                        @else
+                                                            @checked(false)
+                                                        @endif>
+                                                        
                                                         <span class="form-check-sign">Nghỉ học</span>
                                                 </label>
                                             </div>

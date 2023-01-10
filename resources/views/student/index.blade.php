@@ -12,6 +12,7 @@
                 <table class="table table-flush" id="datatable-search">
                     <thead class="thead-light">
                         <tr>
+                            <th>#</th>
                             <th>Họ và tên</th>
                             <th>Giới tính</th>
                             <th>Ngày sinh</th>
@@ -23,6 +24,9 @@
                     <tbody>
                         @foreach ($students as $student)
                         <tr>
+                            <td class="text-sm font-weight-normal">
+                                {{ $student->id }}
+                            </td>
                             <td class="text-sm font-weight-normal">
                                 {{ $student->fullname }}
                             </td>

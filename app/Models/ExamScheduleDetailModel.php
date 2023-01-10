@@ -19,9 +19,15 @@ class ExamScheduleDetailModel extends Model
         return $this->hasOne(ExamScheduleModel::class, 'id', 'exam_schedule_id');
     }
 
-    public function getTeacher()
+    public function getStudent()
     {
         return $this->hasOne(StudentModel::class, 'id', 'student_id');
     }
     
+    public function checkBan($object)
+    {
+        if($object < 5){
+            return 'Cấm thi';
+        }
+    }
 }

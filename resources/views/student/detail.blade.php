@@ -31,7 +31,7 @@
     <div class="col-12">
         <div class="card mb-4">
             <div class="card-header pb-0 p-3">
-                <h6 class="mb-1">About</h6>
+                <h6 class="mb-1">Thông tin cá nhân</h6>
             </div>
             <div class="card h-100">
                 <div class="card-body p-3">
@@ -72,9 +72,72 @@
             </div>
         </div>
     </div>
+
+    <div class="col-12">
+        <div class="card">
+            <div class="card-header d-flex justify-content-between">
+                <h6 class="mb-0">Điểm</h6>
+                
+            </div>
+            <div class="table-responsive">
+                <table class="table table-flush" id="datatable-search">
+                    <thead class="thead-light">
+                        <tr>
+                            <th>#</th>
+                            <th>Mã môn học</th>
+                            <th>Môn học</th>
+                            <th>Điểm quá trình</th>
+                            <th>Điểm giữa kì</th>
+                            <th>Điểm cuối kì</th>
+                            <th>Phân loại</th>
+                            <th>Tổng kết</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($assignment_empty as $assignment)
+                            <tr>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $assignment->id }}
+                                </td>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $assignment->getSubject->slug }}
+                                </td>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $assignment->getSubject->name }}
+                                </td>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $point[$assignment->id]['diligence'] }}
+                                </td>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $point[$assignment->id]['mid_term'] }}
+                                </td>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $point[$assignment->id]['final'] }}
+                                </td>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $assignment->getRank($point[$assignment->id]['total']) }}
+                                </td>
+                                <td class="text-sm font-weight-normal">
+                                    {{ $point[$assignment->id]['total']}}
+                                </td>
+                            </tr>
+                       @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
 </div>
+
 @endsection
 @push('script')
+<script>
+    const dataTableSearch = new simpleDatatables.DataTable("#datatable-search", {
+        searchable: true,
+        fixedHeight: true
+    });
+</script>
 <script>
     getFullAddress('address', "{{ $studentModel->address }}", "{{ $studentModel->ward_id }}", "{{ $studentModel->district_id }}", "{{ $studentModel->city_id }}")
 </script>

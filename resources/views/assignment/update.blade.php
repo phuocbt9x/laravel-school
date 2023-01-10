@@ -89,15 +89,16 @@
                                 <div class="row mt-3">
                                     <div class="col-12 col-sm-6">
                                         <label>Thứ</label>
-                                        <select name="day" id="day"
-                                            class="multisteps-form__input form-control">
+                                        <select name="day_id[]" id="day"
+                                            class="multisteps-form__input form-control" multiple>
                                             <option value="">Chọn thứ</option>
                                             @foreach ($arrDayAssignment as $option=>$value)
                                                 <option value="{{ $value }}"
-                                                    @if ($value === $assignmentModel->day) 
-                                                        selected  
-                                                    @endif> 
-                                                
+                                                    @foreach ($days as $day)
+                                                        @if ($value === $day['day_id']) 
+                                                            selected  
+                                                        @endif 
+                                                    @endforeach>
                                                 {{$option}}
                                                 </option>
                                             @endforeach
@@ -110,12 +111,18 @@
                                     </div>
                                     <div class="col-12 col-sm-6">
                                         <label>Ca học</label>
-                                        <select name="shift_id" id="shift_id"
-                                            class="multisteps-form__input form-control">
+                                        <select name="shift_id[]" id="shift_id"
+                                            class="multisteps-form__input form-control" multiple>
                                             <option value="">Chọn ca học</option>
                                             @foreach ($shifts as $shift)
-                                                <option {{($assignmentModel->shift_id == $shift->id) ? 'selected' : ''}} 
-                                                    value="{{$shift->id}}">
+                                                <option 
+                                                    value="{{$shift->id}}"
+                                                    @foreach ($shiftsArr as $shiftArr)
+                                                        @if ($shift->id === $shiftArr['shift_id']) 
+                                                            selected  
+                                                        @endif 
+                                                    @endforeach    
+                                                >
                                                     {{$shift->title}}
                                                 </option>
                                             @endforeach

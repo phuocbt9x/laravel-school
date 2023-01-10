@@ -13,6 +13,8 @@ use App\Http\Controllers\ShiftController;
 use App\Http\Controllers\SubjectController;
 
 use App\Http\Controllers\LoginController;
+use App\Http\Controllers\PointController;
+use App\Http\Controllers\PointStudentController;
 use App\Http\Controllers\StudentController;
 use App\Http\Controllers\TeacherController;
 use Illuminate\Support\Facades\Route;
@@ -164,13 +166,37 @@ Route::middleware('checkLogin')->group(function () {
         Route::put('update/{examScheduleModel}', 'update')->name('update');
         Route::delete('destroy/{examScheduleModel}', 'destroy')->name('destroy');
     });
+    //Lịch thi chi tiết
     Route::group(['controller' => ExamScheduleDetailController::class , 'prefix' => 'examScheduleDetail' , 'as' => 'examScheduleDetail.'], function(){
         Route::get('/', 'index')->name('index');
+        Route::get('/indexAdmin', 'indexAdmin')->name('indexAdmin');
         Route::get('create', 'create')->name('create');
         Route::post('store', 'store')->name('store');      
         Route::get('show/{examSchedule}', 'show')->name('show');      
         Route::get('edit/{examScheduleModel}', 'edit')->name('edit');
         Route::put('update/{examScheduleModel}', 'update')->name('update');
         Route::delete('destroy/{examScheduleModel}', 'destroy')->name('destroy');
+    });
+    //Điểm học phần
+    Route::group(['controller' => PointController::class , 'prefix' => 'point' , 'as' => 'point.'], function(){
+        Route::get('/', 'index')->name('index');
+        Route::get('create/{id}', 'create')->name('create');
+        Route::get('createPoint/{id}/{student_id}', 'createPoint')->name('createPoint');
+        Route::post('store/{id}/{student_id}', 'store')->name('store');      
+        Route::get('show/{examSchedule}', 'show')->name('show');      
+        Route::get('edit/{id}/{student_id}', 'edit')->name('edit');
+        Route::put('update/{pointModel}', 'update')->name('update');
+        Route::delete('destroy/{pointModel}', 'destroy')->name('destroy');
+    });
+    //Điểm thi sinh viên
+    Route::group(['controller' => PointStudentController::class , 'prefix' => 'pointStudent' , 'as' => 'pointStudent.'], function(){
+        Route::get('/', 'index')->name('index');
+        // Route::get('create/{id}', 'create')->name('create');
+        // Route::get('createPoint/{id}/{student_id}', 'createPoint')->name('createPoint');
+        // Route::post('store/{id}/{student_id}', 'store')->name('store');      
+        // Route::get('show/{examSchedule}', 'show')->name('show');      
+        // Route::get('edit/{id}/{student_id}', 'edit')->name('edit');
+        // Route::put('update/{pointModel}', 'update')->name('update');
+        // Route::delete('destroy/{pointModel}', 'destroy')->name('destroy');
     });
 });
